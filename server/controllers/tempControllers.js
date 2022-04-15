@@ -1,6 +1,6 @@
 const { SerialPortController } = require("../SerialPortController/SerialPortController")
 // POST
-module.exports.inc5 = async (req, res) => {
+module.exports.inc5 = (req, res) => {
     // @route  POST /temp/inc5
     // @desc   Increase temp by 5
     // @access Public
@@ -16,7 +16,7 @@ module.exports.inc5 = async (req, res) => {
     }
 }
 
-module.exports.dec5 = async (req, res) => {
+module.exports.dec5 = (req, res) => {
     // @route  POST /temp/dec5
     // @desc   Decrease temp by 5
     // @access Public

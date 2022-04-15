@@ -18,6 +18,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'client', 'build')));
 app.use(require("morgan")("dev"));
 //routes
 app.use("/temp", require("./routes/temp"));
+app.use("/power", require("./routes/power"));
 
 //sending build
 app.get("*", (req, res) => {

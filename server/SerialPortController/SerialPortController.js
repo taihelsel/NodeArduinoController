@@ -23,11 +23,12 @@ class SerialPortController {
         })
         //loop wait till ready
         const readyWait = setInterval(function () {
-            if (this.ready === false) {
+            if (self.ready === false) {
                 console.log("Waiting for controller");
-                this.port.write("Waiting..\n");
+                self.port.write("Waiting..\n");
             } else {
                 clearInterval(readyWait); //end loop and execute command
+                console.log("port is open");
                 self.executeCommand();
             }
         }, 1000);
@@ -60,8 +61,10 @@ class SerialPortController {
             if (lower === "tempup") this.port.write("TempUp\n");
             else if (lower === "tempdown") this.port.write("TempDown\n");
             else { //if future commands are written, they wont be case checked but can still be executed
+                console.log("writing");
                 this.port.write(`${this.command}\n`);
             }
+            console.log("cmd", this.command);
             this.exit();
         }
     }
