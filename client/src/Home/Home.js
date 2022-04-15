@@ -9,7 +9,10 @@ function Home() {
         alert("handle power");
     }
     const handle5degClick = direction => e => {
-        alert("handle deg");
+        const url = `/temp/${direction === "cold" ? "dec5" : "inc5"}`
+        fetch(url, { method: "POST" })
+            .then(res => res.json())
+            .then(data => alert(data.msg));
     }
     const handleTimerClick = () => {
         alert("handle timer");
