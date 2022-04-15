@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/taihelsel/NodeArduinoController/issues"
   },
-  "homepage": "https://github.com/taihelsel/NodeArduinoController#readme"
+  "homepage": "https://github.com/taihelsel/NodeArduinoController#readme",
+  "dependencies": {
+    "serialport": "^10.4.0"
+  }
 }
