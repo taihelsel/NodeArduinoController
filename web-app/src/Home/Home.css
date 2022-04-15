@@ -6,6 +6,10 @@
     min-height: 100vh;
 }
 
+#controls-container {
+    margin-top: 50px;
+}
+
 .home-btns-row {
     display: flex;
     flex-direction: row;
@@ -13,5 +17,5 @@
     align-items: center;
     margin-left: 29px;
     margin-right: 29px;
-    margin-top: 29px;
+    margin-bottom: 15px;
 }
