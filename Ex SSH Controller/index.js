@@ -57,6 +57,9 @@ function executeCommand() {
 	}
 }
 function exit() {
+	port.close((err) => {
+		console.log("port closed");
+	})
 	console.log("Exiting Node");
 	process.exit(1);
 }

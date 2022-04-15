@@ -8,11 +8,12 @@ class SerialPortController {
         this.port = new SerialPort({ path: '/dev/ttyACM0', baudRate: 9600 });
         //initialize parser
         this.parser = new ReadlineParser();
-        port.pipe(parser);
         //set ready state for port
         this.ready = false;
     }
     init() {
+        const self = this;
+        this.port.pipe(this.parser);
         //wait for controller to ready
         this.parser.on('data', (txt) => {
             if (txt.indexOf("Ready to send IR signals at pin 3") !== -1) {
@@ -22,50 +23,55 @@ class SerialPortController {
         })
         //loop wait till ready
         const readyWait = setInterval(function () {
-            if (ready === false) {
+            if (this.ready === false) {
                 console.log("Waiting for controller");
-                port.write("Waiting..\n");
+                this.port.write("Waiting..\n");
             } else {
                 clearInterval(readyWait); //end loop and execute command
-                this.executeCommand();
+                self.executeCommand();
             }
         }, 1000);
     }
 
     tempChangeByX(args, direction) {
+        const self = this;
         let x = parseInt(args[1]);
         if (isNaN(x)) {
             console.log("Error getting temp value");
-            exit();
+            this.exit();
         } else {
             const tempLoop = setInterval(function () {
                 if (x === 0) {
                     clearInterval(tempLoop);
                     console.log("Done updating temp");
-                    exit();
+                    self.exit();
                 } else {
                     x--;
-                    port.write(`Temp${direction}\n`);
+                    self.port.write(`Temp${direction}\n`);
                 }
             }, 500);
         }
     }
     executeCommand() {
         const lower = this.command.toLowerCase();
-        if (lower.indexOf("temp+") !== -1) tempChangeByX(this.command.split("+"), "Up");
-        else if (lower.indexOf("temp-") !== -1) tempChangeByX(this.command.split("-"), "Down");
+        if (lower.indexOf("temp+") !== -1) this.tempChangeByX(this.command.split("+"), "Up");
+        else if (lower.indexOf("temp-") !== -1) this.tempChangeByX(this.command.split("-"), "Down");
         else {
-            if (lower === "tempup") port.write("TempUp\n");
-            else if (lower === "tempdown") port.write("TempDown\n");
+            if (lower === "tempup") this.port.write("TempUp\n");
+            else if (lower === "tempdown") this.port.write("TempDown\n");
             else { //if future commands are written, they wont be case checked but can still be executed
-                port.write(`${this.command}\n`);
+                this.port.write(`${this.command}\n`);
             }
-            exit();
+            this.exit();
         }
     }
     exit() {
         console.log("Command exit");
+        this.port.close((err) => {
+            console.log("port closed");
+        })
         this.onExit();
     }
 }
-export default SerialPortController;
+
+module.exports = { SerialPortController: SerialPortController };

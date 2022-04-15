@@ -1,4 +1,4 @@
-const SerialPortController = require("../controllers/tempControllers.js");
+const { SerialPortController } = require("../SerialPortController/SerialPortController")
 // POST
 module.exports.inc5 = async (req, res) => {
     // @route  POST /temp/inc5
@@ -11,8 +11,7 @@ module.exports.inc5 = async (req, res) => {
         });
         controller.init();
     } catch (err) {
-        console.log("error inc temp by 5");
         console.log(err);
-        return res.status(400).json({ error: { msg: "unable to add server" } });
+        return res.status(400).json({ error: { msg: "Error updating temp" } });
     }
 }
