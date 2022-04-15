@@ -24,7 +24,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));
 });
 //setting port & starting server
-const server = app.listen(port, () => {
+const server = app.listen(port, '0.0.0.0', () => {
     console.log("Server started on port", port);
 });
 module.exports = server;
