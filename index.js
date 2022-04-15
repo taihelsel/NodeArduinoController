@@ -26,7 +26,6 @@ const readyWait = setInterval(function () {
 }, 1000);
 
 function tempChangeByX(args, direction) {
-	console.log(args);
 	let x = parseInt(args[1]);
 	if (isNaN(x)) {
 		console.log("Error getting temp value");
