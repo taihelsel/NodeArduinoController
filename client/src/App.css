@@ -4,3 +4,8 @@ body,
   display: flex;
   flex: 1;
 }
+
+body {
+  justify-content: center;
+  align-items: center;
+}
