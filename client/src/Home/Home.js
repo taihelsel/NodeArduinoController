@@ -42,10 +42,24 @@ function Home() {
         });
     }
     const handleSliderConfirm = () => {
-        setTempVal({
-            lastVal: tempVal.currentVal,
-            currentVal: tempVal.currentVal,
-        });
+        const data = { "temp": tempVal.currentVal };
+        const url = "/temp/custom/";
+        fetch(url, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                setTempVal({
+                    lastVal: tempVal.currentVal,
+                    currentVal: tempVal.currentVal,
+                });
+                alert(data.msg);
+            });
+
     }
     return tempVal.currentVal === tempVal.lastVal ? (
         <section id="Home">
