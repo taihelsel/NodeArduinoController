@@ -31,3 +31,20 @@ module.exports.dec5 = (req, res) => {
         return res.status(400).json({ error: { msg: "Error updating temp" } });
     }
 }
+
+module.exports.custom = (req, res) => {
+    // @route  POST /temp/custom
+    // @desc   Set custom temp
+    // @access Public
+    try {
+        const temp = req.body.temp;
+        let controller = new SerialPortController(`temp=${temp}`, function () {
+            controller = null;
+            return res.status(201).json({ msg: "Temp changed successfully" });
+        });
+        controller.init();
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({ error: { msg: "Error updating temp" } });
+    }
+}

@@ -50,13 +50,63 @@ class SerialPortController {
                     x--;
                     self.port.write(`Temp${direction}\n`);
                 }
-            }, 500);
+            }, 100);
         }
+    }
+    customTemp(args) {
+        const self = this;
+        let targetTemp = parseInt(args[1]);
+        if (isNaN(targetTemp)) {
+            console.log("Error getting temp value");
+            this.exit();
+        } else {
+            /*
+                min temp = 60
+                max temp = 86
+                if temp <=73 start from 60
+                else start from 86
+                then go to target temp
+            */
+            const startTemp = targetTemp <= 73 ? { direction: "Down", target: 60 } : { direction: "Up", target: 86 };
+            this.goToStartTemp(startTemp, function () {
+                self.goToTargetTemp(startTemp, targetTemp)
+            });
+        }
+    }
+    goToStartTemp({ direction }, cb) {
+        const self = this;
+        let x = 26;
+        const tempLoop = setInterval(function () {
+            if (x === 0) {
+                clearInterval(tempLoop);
+                console.log("Hit Start Temp");
+                cb();
+            } else {
+                x--;
+                self.port.write(`Temp${direction}\n`);
+            }
+        }, 100);
+    }
+    goToTargetTemp(startTemp, target) {
+        const self = this;
+        const direction = startTemp.direction === "Up" ? "Down" : "Up"; //go opposite to start. ex) start 86 then go down from there to hit target
+        let x = Math.abs(startTemp.target - target);
+        const tempLoop = setInterval(function () {
+            if (x === 0) {
+                clearInterval(tempLoop);
+                console.log("Hit Target Temp");
+                self.exit();
+            } else {
+                x--;
+                self.port.write(`Temp${direction}\n`);
+            }
+        }, 100);
     }
     executeCommand() {
         const lower = this.command.toLowerCase();
         if (lower.indexOf("temp+") !== -1) this.tempChangeByX(this.command.split("+"), "Up");
         else if (lower.indexOf("temp-") !== -1) this.tempChangeByX(this.command.split("-"), "Down");
+        else if (lower.indexOf("temp=") !== -1) this.customTemp(this.command.split("="));
         else {
             if (lower === "tempup") this.port.write("TempUp\n");
             else if (lower === "tempdown") this.port.write("TempDown\n");
