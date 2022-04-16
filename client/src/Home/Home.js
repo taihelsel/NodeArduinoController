@@ -1,18 +1,27 @@
-import "./Home.css";
+import React, { useState } from 'react';
 import PowerBtn from "../Components/PowerBtn/PowerBtn";
 import TempSlider from "../Components/TempSlider/TempSlider";
 import Temp5deg from "../Components/Temp5deg/Temp5deg";
 import SetTimerBtn from "../Components/SetTimerBtn/SetTimerBtn";
 import CustomSched from "../Components/CustomSchedBtn/CustomSchedBtn";
+import "./Home.css";
 function Home() {
-    const powerClick = () => {
-        alert("handle power");
-    }
-    const handle5degClick = direction => e => {
-        const url = `/temp/${direction === "cold" ? "dec5" : "inc5"}`
+    const [tempVal, setTempVal] = useState({
+        lastVal: 70,
+        currentVal: 70,
+    });
+    const genericPOST = (url) => {
         fetch(url, { method: "POST" })
             .then(res => res.json())
             .then(data => alert(data.msg));
+    }
+    const powerClick = () => {
+        const url = "/power/";
+        genericPOST(url);
+    }
+    const handle5degClick = direction => e => {
+        const url = `/temp/${direction === "cold" ? "dec5" : "inc5"}`
+        genericPOST(url);
     }
     const handleTimerClick = () => {
         alert("handle timer");
@@ -20,10 +29,28 @@ function Home() {
     const handleSchedClick = () => {
         alert("handle sched");
     }
-    return (
+    const handleSliderChange = (temp) => {
+        setTempVal({
+            lastVal: tempVal.lastVal,
+            currentVal: temp,
+        });
+    }
+    const handleSliderCancel = () => {
+        setTempVal({
+            lastVal: tempVal.lastVal,
+            currentVal: tempVal.lastVal,
+        });
+    }
+    const handleSliderConfirm = () => {
+        setTempVal({
+            lastVal: tempVal.currentVal,
+            currentVal: tempVal.currentVal,
+        });
+    }
+    return tempVal.currentVal === tempVal.lastVal ? (
         <section id="Home">
             <PowerBtn handlePower={powerClick} />
-            <TempSlider />
+            <TempSlider handleSliderChange={handleSliderChange} tempVal={tempVal.currentVal} />
             <div id="controls-container">
                 <div className="home-btns-row">
                     <Temp5deg handleClick={handle5degClick} direction={"cold"} />
@@ -35,7 +62,18 @@ function Home() {
                 </div>
             </div>
         </section>
-    );
+    ) : (
+        <section id="Home">
+            <PowerBtn handlePower={powerClick} />
+            <TempSlider handleSliderChange={handleSliderChange} tempVal={tempVal.currentVal} />
+            <div id="controls-container">
+                <div className="home-btns-row">
+                    <div className="temp-slider-controls temp-slider-cancel" onClick={handleSliderCancel}><h3>Cancel</h3></div>
+                    <div className="temp-slider-controls temp-slider-confirm" onClick={handleSliderConfirm}><h3>Confirm</h3></div>
+                </div>
+            </div>
+        </section>
+    )
 }
 
 export default Home;

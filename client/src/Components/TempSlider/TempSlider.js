@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
 import { CircleSlider } from "react-circle-slider";
 import "./TempSlider.css";
-function TempSlider() {
-    const [tempVal, setTempVal] = useState(70);
-    const handleChange = (event) => {
-        setTempVal(event.target.valueAsNumber);
+function TempSlider({ handleSliderChange, tempVal }) {
+    const handleChange = (e) => {
+        handleSliderChange(e)
     }
     return (
         <div className="temp-slider">
