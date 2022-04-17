@@ -1,0 +1,9 @@
+{
+    "apps": [
+      {
+      "name": "nac",
+      "script": "sudo node server.js",
+      "watch": true
+      }
+    ]
+  }
