@@ -3,6 +3,7 @@ const express = require("express");
 const path = require('path');
 const session = require('express-session');
 const app = express();
+const { serialPortMiddleware } = require("./SerialPortController/SerialPortMiddleware");
 //config
 const port = 80;
 //middleware
@@ -13,13 +14,14 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+app.use(serialPortMiddleware);
 app.use(express.static(path.resolve(__dirname, '..', 'client', 'build')));
 //server logging
 app.use(require("morgan")("dev"));
 //routes
 app.use("/temp", require("./routes/temp"));
 app.use("/power", require("./routes/power"));
-
+app.use("/schedule", require("./routes/schedule"));
 //sending build
 app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'client', 'build', 'index.html'));

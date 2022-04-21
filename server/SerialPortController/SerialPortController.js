@@ -1,8 +1,7 @@
 const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 class SerialPortController {
-    constructor(command, onExit) {
-        this.command = command;
+    constructor(onExit) {
         this.onExit = onExit;
         //connect to serial port
         this.port = new SerialPort({ path: '/dev/ttyACM0', baudRate: 9600 });
@@ -29,7 +28,6 @@ class SerialPortController {
             } else {
                 clearInterval(readyWait); //end loop and execute command
                 console.log("port is open");
-                self.executeCommand();
             }
         }, 1000);
     }
@@ -39,13 +37,11 @@ class SerialPortController {
         let x = parseInt(args[1]);
         if (isNaN(x)) {
             console.log("Error getting temp value");
-            this.exit();
         } else {
             const tempLoop = setInterval(function () {
                 if (x === 0) {
                     clearInterval(tempLoop);
                     console.log("Done updating temp");
-                    self.exit();
                 } else {
                     x--;
                     self.port.write(`Temp${direction}\n`);
@@ -58,7 +54,6 @@ class SerialPortController {
         let targetTemp = parseInt(args[1]);
         if (isNaN(targetTemp)) {
             console.log("Error getting temp value");
-            this.exit();
         } else {
             /*
                 min temp = 60
@@ -95,27 +90,26 @@ class SerialPortController {
             if (x === 0) {
                 clearInterval(tempLoop);
                 console.log("Hit Target Temp");
-                self.exit();
             } else {
                 x--;
                 self.port.write(`Temp${direction}\n`);
             }
         }, 100);
     }
-    executeCommand() {
-        const lower = this.command.toLowerCase();
-        if (lower.indexOf("temp+") !== -1) this.tempChangeByX(this.command.split("+"), "Up");
-        else if (lower.indexOf("temp-") !== -1) this.tempChangeByX(this.command.split("-"), "Down");
-        else if (lower.indexOf("temp=") !== -1) this.customTemp(this.command.split("="));
+    executeCommand(command) {
+        console.log("COMMAND", command);
+        const lower = command.toLowerCase();
+        if (lower.indexOf("temp+") !== -1) this.tempChangeByX(command.split("+"), "Up");
+        else if (lower.indexOf("temp-") !== -1) this.tempChangeByX(command.split("-"), "Down");
+        else if (lower.indexOf("temp=") !== -1) this.customTemp(command.split("="));
         else {
             if (lower === "tempup") this.port.write("TempUp\n");
             else if (lower === "tempdown") this.port.write("TempDown\n");
             else { //if future commands are written, they wont be case checked but can still be executed
                 console.log("writing");
-                this.port.write(`${this.command}\n`);
+                this.port.write(`${command}\n`);
             }
-            console.log("cmd", this.command);
-            this.exit();
+            console.log("cmd", command);
         }
     }
     exit() {

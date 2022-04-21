@@ -6,4 +6,5 @@ const { power } = require("../controllers/powerControllers.js");
 // @access Public
 router.post("/", power);
 
+
 module.exports = router;
