@@ -9,6 +9,7 @@ module.exports.schedule = (req, res) => {
         const { command, time } = req.body;
         let scheduledEvent = new Scheduler(time, command, function () {
             scheduledEvent = null;
+            delete currentSchedules[time];
         });
         scheduledEvent.init();
         currentSchedules[time] = scheduledEvent;
