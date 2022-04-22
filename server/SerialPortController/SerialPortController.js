@@ -97,7 +97,6 @@ class SerialPortController {
         }, 100);
     }
     executeCommand(command) {
-        console.log("COMMAND", command);
         const lower = command.toLowerCase();
         if (lower.indexOf("temp+") !== -1) this.tempChangeByX(command.split("+"), "Up");
         else if (lower.indexOf("temp-") !== -1) this.tempChangeByX(command.split("-"), "Down");
@@ -109,7 +108,6 @@ class SerialPortController {
                 console.log("writing");
                 this.port.write(`${command}\n`);
             }
-            console.log("cmd", command);
         }
     }
     exit() {

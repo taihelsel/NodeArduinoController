@@ -1,9 +1,9 @@
 const express = require("express"), router = express.Router();
-const { test } = require("../controllers/scheduleController.js");
+const { schedule } = require("../controllers/scheduleController.js");
 
-// @route  POST /schedule/test
-// @desc   Testing scheduled times
+// @route  POST /schedule/
+// @desc   Schedule a command
 // @access Public
-router.post("/test", test);
+router.post("/", schedule);
 
 module.exports = router;

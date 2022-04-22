@@ -1,21 +1,21 @@
 const { SerialPort } = require("../SerialPortController/SerialPortMiddleware");
+const minute = 60000;
+const second = 1000;
 
 class Scheduler {
-    constructor(endTime, command, onEnd) {
+    constructor(endTime, command, onEnd, interval = minute) { //default check interval to minutes if none is provided
         this.endTime = endTime;
         this.command = command;
         this.onEnd = onEnd;
     }
     init() {
-        const minute = 60000;
-        const second = 1000;
         const interval = setInterval(() => {
             const currentTime = new Date().getTime();
             if (currentTime >= this.endTime) {
                 clearInterval(interval);
                 this.executeCommand();
             }
-        }, second);
+        }, this.interval);
     }
     executeCommand() {
         SerialPort.executeCommand(this.command)
