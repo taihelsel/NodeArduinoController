@@ -1,18 +1,25 @@
 const Scheduler = require("../Scheduler/Scheduler");
-
-const currentSchedules = {}; //time:schedule
+let ScheduledCommands = new Scheduler();
+function addToSchedule(command, time) {
+    //verify it exists
+    if (ScheduledCommands === null) {
+        ScheduledCommands = new Scheduler();
+    }
+    //add to schedule
+    const details = "testing123";
+    ScheduledCommands.addSchedule(time, command, details);
+    //start it
+    if (ScheduledCommands.isRunning === false) {
+        ScheduledCommands.init();
+    }
+}
 module.exports.schedule = (req, res) => {
     // @route  POST /schedule/
     // @desc   Schedule a command
     // @access Public
     try {
         const { command, time } = req.body;
-        let scheduledEvent = new Scheduler(time, command, function () {
-            scheduledEvent = null;
-            delete currentSchedules[time];
-        });
-        scheduledEvent.init();
-        currentSchedules[time] = scheduledEvent;
+        addToSchedule(command, time);
         return res.status(201).json({ msg: "Scheduler set" });
     } catch (err) {
         console.log(err);
