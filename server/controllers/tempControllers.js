@@ -1,15 +1,11 @@
-const { SerialPortController } = require("../SerialPortController/SerialPortController")
 // POST
 module.exports.inc5 = (req, res) => {
     // @route  POST /temp/inc5
     // @desc   Increase temp by 5
     // @access Public
     try {
-        let controller = new SerialPortController("temp+5", function () {
-            controller = null;
-            return res.status(201).json({ msg: "Temp changed successfully" });
-        });
-        controller.init();
+        req.controller.executeCommand("temp+5");
+        return res.status(201).json({ msg: "Temp changed successfully" });
     } catch (err) {
         console.log(err);
         return res.status(400).json({ error: { msg: "Error updating temp" } });
@@ -21,11 +17,8 @@ module.exports.dec5 = (req, res) => {
     // @desc   Decrease temp by 5
     // @access Public
     try {
-        let controller = new SerialPortController("temp-5", function () {
-            controller = null;
-            return res.status(201).json({ msg: "Temp changed successfully" });
-        });
-        controller.init();
+        req.controller.executeCommand("temp-5");
+        return res.status(201).json({ msg: "Temp changed successfully" });
     } catch (err) {
         console.log(err);
         return res.status(400).json({ error: { msg: "Error updating temp" } });
@@ -37,12 +30,9 @@ module.exports.custom = (req, res) => {
     // @desc   Set custom temp
     // @access Public
     try {
-        const temp = req.body.temp;
-        let controller = new SerialPortController(`temp=${temp}`, function () {
-            controller = null;
-            return res.status(201).json({ msg: "Temp changed successfully" });
-        });
-        controller.init();
+        const { temp } = req.body;
+        req.controller.executeCommand(`temp=${temp}`);
+        return res.status(201).json({ msg: "Temp changed successfully" });
     } catch (err) {
         console.log(err);
         return res.status(400).json({ error: { msg: "Error updating temp" } });
