@@ -29,14 +29,38 @@ class Scheduler {
         const currentTime = new Date().getTime();
         scheduleTimes.forEach(exeTime => {
             if (currentTime >= exeTime) {
-                //execute and remove from scheduler
+                //ready to execute scheduled event
                 this.executeCommand(this.currentSchedules[exeTime].command);
-                delete this.currentSchedules[exeTime];
+                this.handleScheduleCleanup(exeTime, this.currentSchedules[exeTime]);
             }
         });
     }
-    addSchedule(exeTime, command, details) {
-        this.currentSchedules[exeTime] = { command, details };
+    handleScheduleCleanup(exeTime, scheduledEvent) {
+        if (scheduledEvent.reoccuring === true) {
+            //create new sched event if it's set to repeat, then delete the old sched event
+            const d = new Date();
+            d.setMinutes(d.getMinutes + scheduledEvent.interval);
+            const time = d.getTime();
+            const newSchedEvent = { ...scheduledEvent };
+            newSchedEvent.exeTime = time;
+            this.currentSchedules[time] = newSchedEvent;
+        }
+        delete this.currentSchedules[exeTime];
+    }
+    addSchedule(exeTime, scheduledEvent) {
+        /*example schedule
+        "1298190": {
+            exeTime: "1298190",
+            command: "Power",
+            reoccuring: true,
+            interval: 60, //min to add each time new schedule is added
+            desc: {
+                every: ["day", "9:00am"],
+                task: "toggle",
+                command: "power",
+            }
+        }*/
+        this.currentSchedules[exeTime] = { ...scheduledEvent };
     }
     executeCommand(command) {
         SerialPort.executeCommand(command)
