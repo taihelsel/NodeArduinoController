@@ -1,0 +1,129 @@
+#ScheduleBuilder {}
+
+/*content*/
+#sched-builder-content {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.sched-step-container {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.sched-step-title {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 48px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #F3F4F6;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sched-step-body-column,
+.sched-step-body-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.sched-step-body-row {
+    flex-direction: row;
+}
+
+.sched-step-body-column {
+    flex-direction: column;
+}
+
+.sched-step-option-container {
+    flex-direction: row;
+}
+
+.sched-step-input {
+    border-radius: 5px;
+    background-color: #3F434D;
+    border: unset;
+    text-align: center;
+    font-weight: normal;
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #F3F4F6;
+    padding: 7px 0;
+    width:70%;
+    margin-bottom: 20px;
+}
+
+.sched-step-option {
+    display: inline-block;
+    width: fit-content;
+    height: fit-content;
+    padding: 0;
+    padding: 7px 20px;
+    border-radius: 5px;
+    background-color: #3F434D;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #F3F4F6;
+    cursor: pointer;
+    margin: 7.5px;
+    user-select: none;
+    text-align: center;
+}
+
+
+#sched-step-option-selected {
+    background-color: #F3F4F6;
+    color: #3F434D;
+}
+
+
+/*footer*/
+.sched-builder-controls-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: auto;
+    margin-bottom: 30px;
+}
+
+.sched-builder-controls {
+    width: 160px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.sched-builder-controls h3 {
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sched-builder-cancel {
+    background-color: #3F434D;
+    color: #F3F4F6;
+    margin-left: 30px;
+}
+
+.sched-builder-confirm {
+    background-color: #F3F4F6;
+    color: #2A2D35;
+    margin-right: 30px;
+}
+
+.sched-builder-confirm-disabled {
+    background-color: rgba(243, 244, 246, 0.5) !important;
+}

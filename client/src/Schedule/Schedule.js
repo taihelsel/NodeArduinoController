@@ -7,7 +7,7 @@ function Schedule({ updatePage }) {
         updatePage("home");
     }
     const addSchedClick = () => {
-
+        updatePage("schedulebuilder");
     }
     return (
         <section id="Schedule">

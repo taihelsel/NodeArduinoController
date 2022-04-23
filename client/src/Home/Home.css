@@ -1,12 +1,4 @@
-#Home {
-    display: flex;
-    flex-direction: column;
-    background-color: #2A2D35;
-    flex: 1;
-    min-height: 100vh;
-    max-width: 400px;
-    width: 100vw;
-}
+#Home {}
 
 #loading-overlay {
     width: 100%;

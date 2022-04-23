@@ -6,3 +6,13 @@ body,
   justify-content: center;
   align-items: center;
 }
+
+section {
+  background-color: #2A2D35;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 400px;
+  width: 100vw;
+}
