@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Home from "./Home/Home.js";
 import Schedule from './Schedule/Schedule';
 function App() {
-  const [page, setPage] = useState("home");
+  const [page, setPage] = useState("schedule");
   const updatePage = (newPage) => {
     setPage(newPage);
   }
