@@ -5,7 +5,7 @@ import Temp5deg from "../Components/Temp5deg/Temp5deg";
 import SetTimerBtn from "../Components/SetTimerBtn/SetTimerBtn";
 import CustomSched from "../Components/CustomSchedBtn/CustomSchedBtn";
 import "./Home.css";
-function Home() {
+function Home({ updatePage }) {
     const [tempVal, setTempVal] = useState({
         lastVal: 70,
         currentVal: 70,
@@ -32,7 +32,7 @@ function Home() {
         alert("handle timer");
     }
     const handleSchedClick = () => {
-        alert("handle sched");
+        updatePage("schedule")
     }
     const handleSliderChange = (temp) => {
         setTempVal({
