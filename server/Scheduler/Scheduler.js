@@ -18,6 +18,7 @@ class Scheduler {
                     console.log("Scheduler stopped");
                 }
                 else this.executeSchedules(scheduleTimes);
+                console.log(JSON.stringify(this.currentSchedules))
             }, this.interval);
             this.isRunning = true;
             console.log("Scheduler started");
@@ -39,7 +40,7 @@ class Scheduler {
         if (scheduledEvent.reoccuring === true) {
             //create new sched event if it's set to repeat, then delete the old sched event
             const d = new Date();
-            d.setMinutes(d.getMinutes + scheduledEvent.interval);
+            d.setMinutes(d.getMinutes() + scheduledEvent.interval);
             const time = d.getTime();
             const newSchedEvent = { ...scheduledEvent };
             newSchedEvent.exeTime = time;
