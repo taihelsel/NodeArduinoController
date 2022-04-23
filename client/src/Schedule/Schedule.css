@@ -35,3 +35,10 @@ nav h3 {
 #schedule-content {
     margin-top: 15px;
 }
+
+#add-sched-btn {
+    margin-top: auto;
+    margin-bottom: 30px;
+    align-self: center;
+    cursor: pointer;
+}

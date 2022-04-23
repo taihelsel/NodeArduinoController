@@ -1,9 +1,13 @@
 import "./Schedule.css";
 import BackArrow from "../Components/BackArrow/BackArrow";
 import ScheduleCard from "../Components/ScheduleCard/ScheduleCard";
+import AddSchedBtn from "../Components/AddSchedBtn/AddSchedBtn";
 function Schedule({ updatePage }) {
     const backArrowClick = () => {
         updatePage("home");
+    }
+    const addSchedClick = () => {
+
     }
     return (
         <section id="Schedule">
@@ -17,6 +21,9 @@ function Schedule({ updatePage }) {
                 <ScheduleCard />
                 <ScheduleCard />
                 <ScheduleCard />
+            </div>
+            <div id="add-sched-btn">
+                <AddSchedBtn handleClick={addSchedClick} />
             </div>
         </section>
     );
