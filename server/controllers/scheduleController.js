@@ -1,17 +1,4 @@
 const Scheduler = require("../Scheduler/Scheduler");
-const exampleSchedule = {
-    "1298190": {
-        exeTime: "1298190",
-        command: "Power",
-        reoccuring: true,
-        interval: 60, //min to add each time new schedule is added
-        desc: {
-            every: ["day", "9:00am"],
-            task: "toggle",
-            command: "power",
-        }
-    }
-}
 let ScheduledCommands = new Scheduler();
 function addToSchedule(exeTime, scheduledEvent) {
     //verify it exists
@@ -36,5 +23,19 @@ module.exports.schedule = (req, res) => {
     } catch (err) {
         console.log(err);
         return res.status(400).json({ error: { msg: "Error updating power state" } });
+    }
+}
+
+
+module.exports.list = (req, res) => {
+    // @route  GET /schedule/list
+    // @desc   Fetch current schedules
+    // @access Public
+    try {
+        const data = ScheduledCommands.currentSchedules;
+        return res.status(201).json({ ok: true, data: data });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({ ok: false, error: { msg: "Error updating power state" } });
     }
 }
