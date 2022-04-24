@@ -74,7 +74,8 @@ function ScheduleBuilder({ updatePage }) {
                 setSchedTime(newSchedTime);
                 //add new event time to config
                 const newSchedConfig = { ...schedConfig };
-                newSchedConfig.desc.every[1] = `${schedTime.hour}:${schedTime.minute}${schedTime.zone}`
+                newSchedConfig.desc.every[1] = `${schedTime.hour}:${schedTime.minute}${option}`
+                console.log("newSchedConfig.desc.every[1]", newSchedConfig.desc.every[1]);
                 setSchedConfig(newSchedConfig);
                 //show next button
                 setNextAction({

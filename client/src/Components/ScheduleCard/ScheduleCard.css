@@ -26,6 +26,7 @@
     font-weight: 600;
     font-size: 18px;
     color: #F3F4F6;
+    text-transform: capitalize;
 }
 
 .schedule-card-row {

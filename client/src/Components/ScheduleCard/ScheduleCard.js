@@ -1,14 +1,23 @@
 import "./ScheduleCard.css";
-function ScheduleCard() {
+function ScheduleCard({ data }) {
+    const { desc } = data;
+    const cardHighlight = (txt) => {
+        return <h3 className="schedule-card-highlight">{txt}</h3>
+    }
+    const renderEvery = (arr) => {
+        if (arr[0] === "day") {
+            return ["Every ", cardHighlight("day"), " at ", cardHighlight(arr[1])];
+        }
+    }
     return (
         <div className="schedule-card">
             <div className="schedule-card-sidebar">&nbsp;</div>
             <ul className="schedule-card-content">
                 <li className="schedule-card-row">
-                    Every <h3 className="schedule-card-highlight">Day</h3>  at <h3 className="schedule-card-highlight">9:00am</h3>
+                    {renderEvery(desc.every)}
                 </li>
                 <li className="schedule-card-row">
-                    Set <h3 className="schedule-card-highlight">Temp = 75°</h3>
+                    {desc.task}{cardHighlight(desc.command)}
                 </li>
             </ul>
         </div>
