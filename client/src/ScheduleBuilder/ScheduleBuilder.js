@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "./ScheduleBuilder.css";
 import TODInput from './TODInput';
+import IntervalInput from './IntervalInput';
 function ScheduleBuilder({ updatePage }) {
     const [currentStep, setCurrentStep] = useState("schedule");
     const [selectedStepOption, setSelectedStepOption] = useState(null);
@@ -8,6 +9,9 @@ function ScheduleBuilder({ updatePage }) {
         hour: "",
         minute: "",
         zone: null
+    });
+    const [intervalVal, setIntervalVal] = useState({
+        value: "", type: "", ready: false,
     });
     const [nextAction, setNextAction] = useState({ showNext: false, nextStep: null });
     const [schedConfig, setSchedConfig] = useState({
@@ -21,6 +25,20 @@ function ScheduleBuilder({ updatePage }) {
             command: null,
         }
     });
+    const handleIntervalUpdate = (newInterval) => {
+        if (newInterval.ready) {
+            setNextAction({
+                showNext: true,
+                nextStep: "set-task",
+            })
+        } else {
+            setNextAction({
+                showNext: false,
+                nextStep: null,
+            })
+        }
+        setIntervalVal(newInterval);
+    }
     const handleCancel = () => {
         updatePage("schedule")
     }
@@ -66,6 +84,15 @@ function ScheduleBuilder({ updatePage }) {
                 nextStep,
             })
         }
+        if (nextStep === "x-min-input" || nextStep === "x-hour-input") {
+            const newSchedConfig = { ...schedConfig };
+            newSchedConfig.desc.every = [option];
+            setSchedConfig(newSchedConfig);
+            setNextAction({
+                showNext: true,
+                nextStep,
+            })
+        }
         if (nextStep === "set-task") {
             if (option === "am" || option === "pm") {
                 //update the event time
@@ -75,7 +102,6 @@ function ScheduleBuilder({ updatePage }) {
                 //add new event time to config
                 const newSchedConfig = { ...schedConfig };
                 newSchedConfig.desc.every[1] = `${schedTime.hour}:${schedTime.minute}${option}`
-                console.log("newSchedConfig.desc.every[1]", newSchedConfig.desc.every[1]);
                 setSchedConfig(newSchedConfig);
                 //show next button
                 setNextAction({
@@ -113,10 +139,7 @@ function ScheduleBuilder({ updatePage }) {
         const schedMin = parseInt(schedTime.minute);
         const schedHour = parseInt(schedTime.hour);
         configHours(d, schedHour, schedMin, schedTime.zone)
-        console.log("minutes", schedMin);
         d.setMinutes(schedMin)
-        console.log(d);
-        console.log("dmin", d.getMinutes())
         const isDay = true;//blatant for testing. Will do checking for sched interval later
         if (isDay) {
             const intervalTime = 60 * 24;//60min*24hr
@@ -136,9 +159,9 @@ function ScheduleBuilder({ updatePage }) {
                     <h1 className="sched-step-title">Set Schedule</h1>
                     <div className="sched-step-body-row">
                         <div onClick={handleOptionClick("tod-input", "day")} id={selectedStepOption === "day" ? "sched-step-option-selected" : null} className="sched-step-option">Every Day</div>
-                        <div onClick={handleOptionClick("x-min-input", "x-minutes")} id={selectedStepOption === "x-minutes" ? "sched-step-option-selected" : null} className="sched-step-option">Every X Minutes</div>
+                        <div onClick={handleOptionClick("x-min-input", "minutes")} id={selectedStepOption === "minutes" ? "sched-step-option-selected" : null} className="sched-step-option">Every X Minutes</div>
                         <div onClick={handleOptionClick("command", "hour")} id={selectedStepOption === "hour" ? "sched-step-option-selected" : null} className="sched-step-option">Every Hour</div>
-                        <div onClick={handleOptionClick("x-hour-input", "x-hour")} id={selectedStepOption === "x-hour" ? "sched-step-option-selected" : null} className="sched-step-option">Every X Hours</div>
+                        <div onClick={handleOptionClick("x-hour-input", "hours")} id={selectedStepOption === "hours" ? "sched-step-option-selected" : null} className="sched-step-option">Every X Hours</div>
                     </div>
                 </div>
             )
@@ -146,11 +169,13 @@ function ScheduleBuilder({ updatePage }) {
         if (step === "tod-input") {
             return <TODInput optionClick={handleOptionClick} selectedOption={selectedStepOption} setSchedTime={setSchedTime} schedTime={schedTime} />
         }
-
+        if (step === "x-min-input" || step === "x-hour-input") {
+            return <IntervalInput intervalType={step} intervalVal={intervalVal} handleIntervalUpdate={handleIntervalUpdate} />
+        }
         if (step === "set-task") {
             return (
                 <div className="sched-step-container">
-                    <h1 className="sched-step-title">Set Schedule</h1>
+                    <h1 className="sched-step-title">Set Task</h1>
                     <div className="sched-step-body-row">
                         <div onClick={handleOptionClick("temp-inc-input", "inc-temp-x")} id={selectedStepOption === "inc-temp-x" ? "sched-step-option-selected" : null} className="sched-step-option">Increase Temp By X</div>
                         <div onClick={handleOptionClick("temp-target-input", "set-temp")} id={selectedStepOption === "set-temp" ? "sched-step-option-selected" : null} className="sched-step-option">Set Temp To X</div>
@@ -161,7 +186,6 @@ function ScheduleBuilder({ updatePage }) {
             )
         }
     }
-    console.log("new", schedTime);
     return (
         <section id="ScheduleBuilder">
             <div id="sched-builder-content">

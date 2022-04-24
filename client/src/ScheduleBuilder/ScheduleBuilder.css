@@ -156,3 +156,25 @@
     font-size: 18px;
     margin: 0 5px;
 }
+
+/*interval*/
+.interval-input {
+    width: 25%;
+    margin: 0 12px;
+    padding: 7px 0;
+    border-radius: 5px;
+    background-color: #3F434D;
+    border: unset;
+    text-align: center;
+    font-weight: normal;
+    font-size: 18px;
+    font-family: 'Open Sans', sans-serif;
+    color: #F3F4F6;
+}
+
+.interval-input-labels {
+    color: #F3F4F6;
+    font-size: 18px;
+    margin: 0px;
+    font-weight: 600;
+}
