@@ -4,13 +4,17 @@ import TODInput from './TODInput';
 function ScheduleBuilder({ updatePage }) {
     const [currentStep, setCurrentStep] = useState("schedule");
     const [selectedStepOption, setSelectedStepOption] = useState(null);
-    const [schedTime, setSchedTime] = useState({ hour: null, minute: null, zone: null });
+    const [schedTime, setSchedTime] = useState({
+        hour: "",
+        minute: "",
+        zone: null
+    });
     const [nextAction, setNextAction] = useState({ showNext: false, nextStep: null });
     const [schedConfig, setSchedConfig] = useState({
-        exeTime: 1234,
+        exeTime: null,
         command: null,
-        reoccuring: true,
-        interval: 1, //min to add each time new schedule is added
+        reoccuring: null,
+        interval: null, //min to add each time new schedule is added
         desc: {
             every: null,
             task: null,
@@ -81,17 +85,48 @@ function ScheduleBuilder({ updatePage }) {
         }
         if (nextStep === "save") {
             if (option === "power") {
-                const newSchedConfig = { ...schedConfig };
-                newSchedConfig.desc.task = "toggle";
-                newSchedConfig.desc.command = "Power";
-                newSchedConfig.command = "Power";
-                setSchedConfig(newSchedConfig);
+                finalizeConfig("Power", "Toggle", "Power");
                 setNextAction({
                     showNext: true,
                     nextStep,
                 });
             }
         }
+    }
+    function configHours(d, target, minute, zone) {
+        const dHr = d.getHours();
+        const dMin = d.getMinutes();
+        if (zone === "pm") target += 12;
+        if (dHr === target && dMin < minute) {
+            //can sched today
+            d.setHours(target);
+        }
+        else {
+            //sched tomorrorow
+            d.setHours(dHr < target ? target : target + 24);
+        }
+    }
+    const finalizeConfig = (command, task, descCommand) => {
+        const newSchedConfig = { ...schedConfig };
+        const d = new Date();
+        const schedMin = parseInt(schedTime.minute);
+        const schedHour = parseInt(schedTime.hour);
+        configHours(d, schedHour, schedMin, schedTime.zone)
+        console.log("minutes", schedMin);
+        d.setMinutes(schedMin)
+        console.log(d);
+        console.log("dmin", d.getMinutes())
+        const isDay = true;//blatant for testing. Will do checking for sched interval later
+        if (isDay) {
+            const intervalTime = 60 * 24;//60min*24hr
+            newSchedConfig.reoccuring = true;
+            newSchedConfig.interval = intervalTime;
+        }
+        newSchedConfig.desc.task = task;
+        newSchedConfig.desc.command = descCommand;
+        newSchedConfig.command = command;
+        newSchedConfig.exeTime = d.getTime();
+        setSchedConfig(newSchedConfig);
     }
     const renderCurrentStep = (step) => {
         if (step === "schedule") {
@@ -125,6 +160,7 @@ function ScheduleBuilder({ updatePage }) {
             )
         }
     }
+    console.log("new", schedTime);
     return (
         <section id="ScheduleBuilder">
             <div id="sched-builder-content">
