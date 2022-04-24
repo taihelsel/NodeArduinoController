@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import "./ScheduleBuilder.css";
-
+import TODInput from './TODInput';
 function ScheduleBuilder({ updatePage }) {
     const [currentStep, setCurrentStep] = useState("schedule");
     const [selectedStepOption, setSelectedStepOption] = useState(null);
-    const [schedInput, setSchedInput] = useState("");
+    const [schedTime, setSchedTime] = useState({ hour: null, minute: null, zone: null });
     const [nextAction, setNextAction] = useState({ showNext: false, nextStep: null });
     const [schedConfig, setSchedConfig] = useState({
         exeTime: 1234,
@@ -47,7 +47,6 @@ function ScheduleBuilder({ updatePage }) {
                     showNext: false,
                     nextStep: null,
                 });
-                setSchedInput("");
                 setSelectedStepOption("");
             }
         }
@@ -65,9 +64,15 @@ function ScheduleBuilder({ updatePage }) {
         }
         if (nextStep === "set-task") {
             if (option === "am" || option === "pm") {
+                //update the event time
+                const newSchedTime = { ...schedTime };
+                newSchedTime.zone = option;
+                setSchedTime(newSchedTime);
+                //add new event time to config
                 const newSchedConfig = { ...schedConfig };
-                newSchedConfig.desc.every[1] = schedInput + option;
+                newSchedConfig.desc.every[1] = `${schedTime.hour}:${schedTime.minute}${schedTime.zone}`
                 setSchedConfig(newSchedConfig);
+                //show next button
                 setNextAction({
                     showNext: true,
                     nextStep,
@@ -88,10 +93,6 @@ function ScheduleBuilder({ updatePage }) {
             }
         }
     }
-    const handleSchedInput = e => {
-        const val = e.target.value;
-        setSchedInput(val);
-    }
     const renderCurrentStep = (step) => {
         if (step === "schedule") {
             return (
@@ -107,18 +108,7 @@ function ScheduleBuilder({ updatePage }) {
             )
         }
         if (step === "tod-input") {
-            return (
-                <div className="sched-step-container">
-                    <h1 className="sched-step-title">Set Time</h1>
-                    <div className="sched-step-body-column">
-                        <input className="sched-step-input" onChange={handleSchedInput} value={schedInput} type="text" />
-                        <div className="sched-step-option-container">
-                            <div onClick={handleOptionClick("set-task", "am")} id={selectedStepOption === "am" ? "sched-step-option-selected" : null} className="sched-step-option">AM</div>
-                            <div onClick={handleOptionClick("set-task", "pm")} id={selectedStepOption === "pm" ? "sched-step-option-selected" : null} className="sched-step-option">PM</div>
-                        </div>
-                    </div>
-                </div>
-            )
+            return <TODInput optionClick={handleOptionClick} selectedOption={selectedStepOption} setSchedTime={setSchedTime} schedTime={schedTime} />
         }
 
         if (step === "set-task") {
