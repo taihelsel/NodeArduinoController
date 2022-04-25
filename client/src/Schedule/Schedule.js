@@ -4,9 +4,11 @@ import BackArrow from "../Components/BackArrow/BackArrow";
 import ScheduleCard from "../Components/ScheduleCard/ScheduleCard";
 import AddSchedBtn from "../Components/AddSchedBtn/AddSchedBtn";
 import TrashBtn from "../Components/TrashBtn/TrashBtn";
+import Confirmation from '../Components/Confirmation/Confirmation';
 function Schedule({ updatePage }) {
     const [editMode, setEditMode] = useState(false);
     const [toDelete, setToDelete] = useState([]);
+    const [showConfirmation, setShowConfirmation] = useState(false);
     const [schedules, setSchedules] = useState({
         "1650880079787": {
             "exeTime": 1650880079787,
@@ -66,7 +68,7 @@ function Schedule({ updatePage }) {
     const trashClick = () => {
         console.log("tash");
         if (toDelete.length > 0) {
-            console.log("Delete", toDelete);
+            setShowConfirmation(true);
         }
     }
     const renderFooter = (editMode) => {
@@ -79,6 +81,17 @@ function Schedule({ updatePage }) {
                 <AddSchedBtn />
             </div >
         )
+    }
+    const handleConfirmationCancel = () => {
+        //just hide cancel 
+        setShowConfirmation(false);
+    }
+    const handleConfirmationConfirm = () => {
+        //send delete to backend
+        console.log("send delete data");
+        setShowConfirmation(false);
+        setEditMode(false);
+        setToDelete([]);
     }
     return (
         <section id="Schedule">
@@ -94,6 +107,7 @@ function Schedule({ updatePage }) {
                 {loadCards()}
             </div>
             {renderFooter(editMode)}
+            {showConfirmation ? <Confirmation title={"Deleting 1 schedule"} body={"Are you sure you want to delete these schedules"} confirmationBtnText={"Delete"} handleCancel={handleConfirmationCancel} handleConfirm={handleConfirmationConfirm} /> : ""}
         </section>
     );
 }

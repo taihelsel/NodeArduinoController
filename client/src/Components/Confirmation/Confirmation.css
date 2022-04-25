@@ -1,0 +1,63 @@
+.confirmation-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmation {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: #3F434D;
+    text-align: center;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.confirmation-title {
+    margin: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #F3F4F6;
+}
+
+.confirmation-body {
+    margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #F3F4F6;
+}
+
+.confirmation-footer {
+    display: flex;
+    flex-direction: row;
+    border-top: 1px solid rgba(243, 244, 246, 0.3);
+}
+
+.confirmation-cancel-btn,
+.confirmation-confirm-btn {
+    padding: 12px 0;
+}
+
+.confirmation-cancel-btn {
+    flex: 1;
+    background-color: #3F434D;
+    color: #F3F4F6;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.confirmation-confirm-btn {
+    background-color: #A95050;
+    flex: 1;
+    color: #F3F4F6;
+    font-size: 18px;
+    font-weight: 600;
+    border-left: 1px solid rgba(243, 244, 246, 0.3);
+}
