@@ -154,6 +154,16 @@ function ScheduleBuilder({ updatePage }) {
                     nextStep,
                 });
             }
+            if (option === "hour") {
+                const newSchedConfig = { ...schedConfig };
+                newSchedConfig.desc.every = [option];
+                setSchedConfig(newSchedConfig);
+                //show next button
+                setNextAction({
+                    showNext: true,
+                    nextStep,
+                });
+            }
         }
         if (nextStep === "temp-input") {
             setNextAction({
@@ -212,6 +222,12 @@ function ScheduleBuilder({ updatePage }) {
             //setting interval
             newSchedConfig.reoccuring = true;
             newSchedConfig.interval = interval;//every x minutes
+        } else if (every === "hour") {
+            //setting exe time
+            d.setHours(d.getHours() + 1);
+            //setting interval
+            newSchedConfig.reoccuring = true;
+            newSchedConfig.interval = 60;//every hour
         } else {
             console.error("something weird happened getting 'every' value");
         }
@@ -230,7 +246,7 @@ function ScheduleBuilder({ updatePage }) {
                     <div className="sched-step-body-row">
                         <div onClick={handleOptionClick("tod-input", "day")} id={selectedStepOption === "day" ? "sched-step-option-selected" : null} className="sched-step-option">Every Day</div>
                         <div onClick={handleOptionClick("x-min-input", "minutes")} id={selectedStepOption === "minutes" ? "sched-step-option-selected" : null} className="sched-step-option">Every X Minutes</div>
-                        <div onClick={handleOptionClick("command", "hour")} id={selectedStepOption === "hour" ? "sched-step-option-selected" : null} className="sched-step-option">Every Hour</div>
+                        <div onClick={handleOptionClick("set-task", "hour")} id={selectedStepOption === "hour" ? "sched-step-option-selected" : null} className="sched-step-option">Every Hour</div>
                         <div onClick={handleOptionClick("x-hour-input", "hours")} id={selectedStepOption === "hours" ? "sched-step-option-selected" : null} className="sched-step-option">Every X Hours</div>
                     </div>
                 </div>
