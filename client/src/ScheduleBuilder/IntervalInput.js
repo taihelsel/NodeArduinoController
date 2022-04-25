@@ -35,7 +35,6 @@ const IntervalInput = ({ intervalType, intervalVal, handleIntervalUpdate }) => {
     }
     const handleInput = (e) => {
         const time = e.target.value;
-        console.log("time", time, "interval", intervalType);
         if (time.length === 0) updateInterval("");
         else if (validTime(time)) {
             if (intervalType === "minutes") updateInterval(formatMin(time));

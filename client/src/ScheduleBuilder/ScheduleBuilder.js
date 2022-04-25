@@ -27,6 +27,9 @@ function ScheduleBuilder({ updatePage }) {
     });
     const handleIntervalUpdate = (newInterval) => {
         if (newInterval.ready) {
+            const newSchedConfig = { ...schedConfig };
+            newSchedConfig.desc.every[1] = newInterval.value;
+            setSchedConfig(newSchedConfig);
             setNextAction({
                 showNext: true,
                 nextStep: "set-task",
@@ -74,6 +77,7 @@ function ScheduleBuilder({ updatePage }) {
         }
     }
     const handleOptionClick = (nextStep, option) => e => {
+        console.log("next", nextStep);
         setSelectedStepOption(option);
         if (nextStep === "tod-input") {
             const newSchedConfig = { ...schedConfig };
@@ -135,22 +139,41 @@ function ScheduleBuilder({ updatePage }) {
     }
     const finalizeConfig = (command, task, descCommand) => {
         const newSchedConfig = { ...schedConfig };
+        const every = schedConfig.desc.every[0].toLowerCase();
+        const interval = parseInt(intervalVal.value);
         const d = new Date();
-        const schedMin = parseInt(schedTime.minute);
-        const schedHour = parseInt(schedTime.hour);
-        configHours(d, schedHour, schedMin, schedTime.zone)
-        d.setMinutes(schedMin)
-        const isDay = true;//blatant for testing. Will do checking for sched interval later
-        if (isDay) {
-            const intervalTime = 60 * 24;//60min*24hr
+        if (every === "day") {
+            //setting exe time
+            const schedMin = parseInt(schedTime.minute);
+            const schedHour = parseInt(schedTime.hour);
+            configHours(d, schedHour, schedMin, schedTime.zone)
+            d.setMinutes(schedMin)
+            //setting interval
             newSchedConfig.reoccuring = true;
-            newSchedConfig.interval = intervalTime;
+            newSchedConfig.interval = 60 * 24;//60min*24hr
+        }
+        else if (every === "hours") {
+            //setting exe time
+            d.setHours(d.getHours() + parseInt(intervalVal.value));
+            //setting interval
+            newSchedConfig.reoccuring = true;
+            newSchedConfig.interval = 60 * interval;//60min * every x hours
+        }
+        else if (every === "minutes") {
+            //setting exe time
+            d.setMinutes(d.getMinutes() + parseInt(intervalVal.value));
+            //setting interval
+            newSchedConfig.reoccuring = true;
+            newSchedConfig.interval = interval;//every x minutes
+        } else {
+            console.error("something weird happened getting 'every' value");
         }
         newSchedConfig.desc.task = task;
         newSchedConfig.desc.command = descCommand;
         newSchedConfig.command = command;
         newSchedConfig.exeTime = d.getTime();
         setSchedConfig(newSchedConfig);
+        console.log("sched", newSchedConfig);
     }
     const renderCurrentStep = (step) => {
         if (step === "schedule") {
