@@ -52,7 +52,6 @@ function ScheduleBuilder({ updatePage }) {
     }
     const handleTempUpdate = (newTemp) => {
         if (newTemp.ready) {
-            const newSchedConfig = { ...schedConfig };
             const { temp, type } = newTemp;
             let command = "";
             let descCommand = "";
@@ -71,8 +70,7 @@ function ScheduleBuilder({ updatePage }) {
             }
             command += temp;
             descCommand += temp;
-            finalizeConfig(command, task,descCommand);
-            setSchedConfig(newSchedConfig);
+            finalizeConfig(command, task, descCommand);
             setNextAction({
                 showNext: true,
                 nextStep: "save",
