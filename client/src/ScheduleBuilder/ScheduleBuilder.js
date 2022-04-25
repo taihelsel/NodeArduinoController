@@ -6,13 +6,20 @@ import TempInput from './TempInput';
 function ScheduleBuilder({ updatePage }) {
     const [currentStep, setCurrentStep] = useState("schedule");
     const [selectedStepOption, setSelectedStepOption] = useState(null);
+    const [tempVal, setTempVal] = useState({
+        temp: "",
+        type: null,
+        ready: false,
+    })
     const [schedTime, setSchedTime] = useState({
         hour: "",
         minute: "",
         zone: null
     });
     const [intervalVal, setIntervalVal] = useState({
-        value: "", type: "", ready: false,
+        value: "",
+        type: "",
+        ready: false,
     });
     const [nextAction, setNextAction] = useState({ showNext: false, nextStep: null });
     const [schedConfig, setSchedConfig] = useState({
@@ -42,6 +49,38 @@ function ScheduleBuilder({ updatePage }) {
             })
         }
         setIntervalVal(newInterval);
+    }
+    const handleTempUpdate = (newTemp) => {
+        if (newTemp.ready) {
+            const newSchedConfig = { ...schedConfig };
+            const { temp, type } = newTemp;
+            if (type === "dec-temp-x") {
+                newSchedConfig.command = "temp-";
+                newSchedConfig.desc.command = "Temp - "
+            }
+            if (type === "inc-temp-x") {
+                newSchedConfig.command = "temp+";
+                newSchedConfig.desc.command = "Temp + "
+            }
+            if (type === "set-temp") {
+                newSchedConfig.command = "temp=";
+                newSchedConfig.desc.command = "Temp = "
+            }
+            newSchedConfig.command += temp;
+            newSchedConfig.desc.command += temp;
+            newSchedConfig.desc.task = "Set";
+            setSchedConfig(newSchedConfig);
+            setNextAction({
+                showNext: true,
+                nextStep: "save",
+            })
+        } else {
+            setNextAction({
+                showNext: false,
+                nextStep: "save",
+            })
+        }
+        setTempVal(newTemp);
     }
     const handleCancel = () => {
         updatePage("schedule")
@@ -216,7 +255,14 @@ function ScheduleBuilder({ updatePage }) {
             )
         }
         if (step === "inc-temp-x" || step === "set-temp" || step === "dec-temp-x") {
-            return <TempInput tempType={step} />
+            if (nextAction.nextStep !== "save") {
+                //workaround to show save btn instead of 'next' on these pages
+                setNextAction({
+                    showNext: false,
+                    nextStep: "save",
+                });
+            }
+            return <TempInput tempType={step} tempVal={tempVal} handleTempUpdate={handleTempUpdate} />
         }
     }
     return (
