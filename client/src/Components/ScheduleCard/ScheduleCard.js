@@ -1,6 +1,6 @@
 import "./ScheduleCard.css";
-function ScheduleCard({ data }) {
-    const { desc, command } = data;
+function ScheduleCard({ data, fillEdit, editMode, handleBtnClick }) {
+    const { desc, command, exeTime } = data;
     const setSidebarColor = (cmd) => {
         if (cmd === "power") return "yellow";
         if (cmd.indexOf("temp=") !== -1) {
@@ -29,17 +29,30 @@ function ScheduleCard({ data }) {
             return "";
         }
     }
+    const handleDeleteBtnClick = () => {
+        handleBtnClick(exeTime);
+    }
+    const renderDeleteBtn = (editMode) => {
+        return editMode ? (
+            <div className={`schedule-delete-btn ${fillEdit ? "schedule-delete-btn-fill" : ""}`} onClick={handleDeleteBtnClick}>
+                &nbsp;
+            </div>
+        ) : "";
+    }
     return (
         <div className="schedule-card">
-            <div className={`schedule-card-sidebar schedule-card-sidebar-${setSidebarColor(command.toLowerCase())}`}>&nbsp;</div>
-            <ul className="schedule-card-content">
-                <li className="schedule-card-row">
-                    {renderEvery(desc.every)}
-                </li>
-                <li className="schedule-card-row">
-                    {desc.task}{cardHighlight(desc.command)}
-                </li>
-            </ul>
+            {renderDeleteBtn(editMode)}
+            <div className="schedule-card-content">
+                <div className={`schedule-card-sidebar schedule-card-sidebar-${setSidebarColor(command.toLowerCase())}`}>&nbsp;</div>
+                <ul className="schedule-card-details">
+                    <li className="schedule-card-row">
+                        {renderEvery(desc.every)}
+                    </li>
+                    <li className="schedule-card-row">
+                        {desc.task}{cardHighlight(desc.command)}
+                    </li>
+                </ul>
+            </div>
         </div>
     );
 }

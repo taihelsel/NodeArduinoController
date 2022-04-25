@@ -28,7 +28,8 @@ nav h3 {
     margin-top: 15px;
 }
 
-#add-sched-btn {
+#add-sched-btn,
+#trash-sched-btn {
     margin-top: auto;
     margin-bottom: 30px;
     align-self: center;
