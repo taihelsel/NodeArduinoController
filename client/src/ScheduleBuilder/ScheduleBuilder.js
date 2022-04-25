@@ -54,21 +54,24 @@ function ScheduleBuilder({ updatePage }) {
         if (newTemp.ready) {
             const newSchedConfig = { ...schedConfig };
             const { temp, type } = newTemp;
+            let command = "";
+            let descCommand = "";
+            const task = "Set";
             if (type === "dec-temp-x") {
-                newSchedConfig.command = "temp-";
-                newSchedConfig.desc.command = "Temp - "
+                command = "temp-";
+                descCommand = "Temp - "
             }
             if (type === "inc-temp-x") {
-                newSchedConfig.command = "temp+";
-                newSchedConfig.desc.command = "Temp + "
+                command = "temp+";
+                descCommand = "Temp + "
             }
             if (type === "set-temp") {
-                newSchedConfig.command = "temp=";
-                newSchedConfig.desc.command = "Temp = "
+                command = "temp=";
+                descCommand = "Temp = "
             }
-            newSchedConfig.command += temp;
-            newSchedConfig.desc.command += temp;
-            newSchedConfig.desc.task = "Set";
+            command += temp;
+            descCommand += temp;
+            finalizeConfig(command, task,descCommand);
             setSchedConfig(newSchedConfig);
             setNextAction({
                 showNext: true,
