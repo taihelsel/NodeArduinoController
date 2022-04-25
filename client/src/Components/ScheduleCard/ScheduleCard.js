@@ -3,14 +3,14 @@ function ScheduleCard({ data }) {
     const { desc, command } = data;
     const setSidebarColor = (cmd) => {
         if (cmd === "power") return "yellow";
-        if (cmd.indexOf("temp=")) {
+        if (cmd.indexOf("temp=") !== -1) {
             const tempCmd = cmd.split("=");
             const temp = parseInt(tempCmd[1]);
             if (temp > 75) return "red";
-            if (temp <= 74) return "blue"
+            if (temp <= 74) return "blue";
         }
-        if (cmd.indexOf("temp-")) return "blue";
-        if (cmd.indexOf("temp+")) return "red";
+        if (cmd.indexOf("temp-") !== -1) return "blue";
+        if (cmd.indexOf("temp+") !== -1) return "red";
     }
     const cardHighlight = (txt) => {
         return <h3 className="schedule-card-highlight">{txt}</h3>
