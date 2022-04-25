@@ -1,6 +1,17 @@
 import "./ScheduleCard.css";
 function ScheduleCard({ data }) {
-    const { desc } = data;
+    const { desc, command } = data;
+    const setSidebarColor = (cmd) => {
+        if (cmd === "power") return "yellow";
+        if (cmd.indexOf("temp=")) {
+            const tempCmd = cmd.split("=");
+            const temp = parseInt(tempCmd[1]);
+            if (temp > 75) return "red";
+            if (temp <= 74) return "blue"
+        }
+        if (cmd.indexOf("temp-")) return "blue";
+        if (cmd.indexOf("temp+")) return "red";
+    }
     const cardHighlight = (txt) => {
         return <h3 className="schedule-card-highlight">{txt}</h3>
     }
@@ -17,7 +28,7 @@ function ScheduleCard({ data }) {
     }
     return (
         <div className="schedule-card">
-            <div className="schedule-card-sidebar">&nbsp;</div>
+            <div className={`schedule-card-sidebar schedule-card-sidebar-${setSidebarColor(command.toLowerCase())}`}>&nbsp;</div>
             <ul className="schedule-card-content">
                 <li className="schedule-card-row">
                     {renderEvery(desc.every)}

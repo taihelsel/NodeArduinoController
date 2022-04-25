@@ -7,9 +7,21 @@
 .schedule-card-sidebar {
     width: 5px;
     height: auto;
-    background-color: #69C1DC;
+    background-color: #3F434D;
     border-radius: 5px;
     margin: 0 15px 0 30px;
+}
+
+.schedule-card-sidebar-blue {
+    background-color: #69C1DC !important;
+}
+
+.schedule-card-sidebar-red {
+    background-color: #DC6969 !important;
+}
+
+.schedule-card-sidebar-yellow {
+    background-color: #D4DC69 !important;
 }
 
 .schedule-card-content {
