@@ -9,33 +9,18 @@ function Schedule({ updatePage }) {
     const [editMode, setEditMode] = useState(false);
     const [toDelete, setToDelete] = useState([]);
     const [showConfirmation, setShowConfirmation] = useState(false);
-    const [schedules, setSchedules] = useState({
-        "1650880079787": {
-            "exeTime": 1650880079787,
-            "command": "temp-4",
-            "reoccuring": true,
-            "interval": 180,
-            "desc": {
-                "every": [
-                    "hours",
-                    "3"
-                ],
-                "task": "Set",
-                "command": "Temp - 4"
-            }
-        }
-    });
-    // useEffect(() => {
-    //     fetch("/schedule/list")
-    //         .then(res => res.json())
-    //         .then(({ data, ok }) => {
-    //             if (ok === true) {
-    //                 setSchedules(data);
-    //             }
-    //         }).catch(err => {
-    //             console.log("handle err getting schedules", err);
-    //         })
-    // }, [])
+    const [schedules, setSchedules] = useState({});
+    useEffect(() => {
+        fetch("/schedule/list")
+            .then(res => res.json())
+            .then(({ data, ok }) => {
+                if (ok === true) {
+                    setSchedules(data);
+                }
+            }).catch(err => {
+                console.log("handle err getting schedules", err);
+            })
+    }, [])
     const backArrowClick = () => {
         updatePage("home");
     }
@@ -86,9 +71,41 @@ function Schedule({ updatePage }) {
         //just hide cancel 
         setShowConfirmation(false);
     }
+    const updateSchedules = () => {
+        fetch("/schedule/list")
+            .then(res => res.json())
+            .then(({ data, ok }) => {
+                if (ok === true) {
+                    setSchedules(data);
+                }
+            }).catch(err => {
+                console.log("handle err getting schedules", err);
+            })
+    }
+    const deleteData = (data) => {
+        const body = { list: data };
+        fetch("/schedule/delete", {
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+            },
+            method: "DELETE",
+            body: JSON.stringify(body),
+        })
+            .then(res => res.json())
+            .then(({ msg }) => {
+                alert(msg);
+                updateSchedules();
+            }).catch(err => {
+                console.log("handle err getting schedules", err);
+            })
+    }
     const handleConfirmationConfirm = () => {
         //send delete to backend
         console.log("send delete data");
+        //send copy of delete list
+        deleteData([...toDelete]);
+        //cleanup
         setShowConfirmation(false);
         setEditMode(false);
         setToDelete([]);
@@ -107,7 +124,7 @@ function Schedule({ updatePage }) {
                 {loadCards()}
             </div>
             {renderFooter(editMode)}
-            {showConfirmation ? <Confirmation title={"Deleting 1 schedule"} body={"Are you sure you want to delete these schedules"} confirmationBtnText={"Delete"} handleCancel={handleConfirmationCancel} handleConfirm={handleConfirmationConfirm} /> : ""}
+            {showConfirmation ? <Confirmation title={`Deleting ${toDelete.length} schedules`} body={"Are you sure you want to delete these schedules"} confirmationBtnText={"Delete"} handleCancel={handleConfirmationCancel} handleConfirm={handleConfirmationConfirm} /> : ""}
         </section>
     );
 }

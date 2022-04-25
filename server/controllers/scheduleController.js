@@ -45,8 +45,10 @@ module.exports.del = (req, res) => {
     // @desc   Delete scheduled event from scheduler
     // @access Public
     try {
-        const { exeTime } = req.body;
-        ScheduledCommands.deleteSchedule(exeTime);
+        const { list } = req.body;
+        list.forEach(exeTime => {
+            ScheduledCommands.deleteSchedule(exeTime);
+        })
         return res.status(201).json({ ok: true, msg: "Deleted item" });
     } catch (err) {
         console.log(err);
