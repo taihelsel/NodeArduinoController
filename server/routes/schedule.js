@@ -1,5 +1,5 @@
 const express = require("express"), router = express.Router();
-const { schedule, list } = require("../controllers/scheduleController.js");
+const { schedule, list, del } = require("../controllers/scheduleController.js");
 
 // @route  POST /schedule/
 // @desc   Schedule a command
@@ -10,5 +10,11 @@ router.post("/", schedule);
 // @desc   Fetch current schedules
 // @access Public
 router.get("/list", list);
+
+
+// @route  DELETE /schedule/delete
+// @desc   Delete scheduled event from scheduler
+// @access Public
+router.delete("/delete", del);
 
 module.exports = router;

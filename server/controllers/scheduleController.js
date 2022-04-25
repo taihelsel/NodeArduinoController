@@ -39,3 +39,17 @@ module.exports.list = (req, res) => {
         return res.status(400).json({ ok: false, error: { msg: "Error updating power state" } });
     }
 }
+
+module.exports.del = (req, res) => {
+    // @route  DELETE /schedule/delete
+    // @desc   Delete scheduled event from scheduler
+    // @access Public
+    try {
+        const { exeTime } = req.body;
+        ScheduledCommands.deleteSchedule(exeTime);
+        return res.status(201).json({ ok: true, msg: "Deleted item" });
+    } catch (err) {
+        console.log(err);
+        return res.status(400).json({ ok: false, error: { msg: "Error updating power state" } });
+    }
+}

@@ -46,22 +46,16 @@ class Scheduler {
             newSchedEvent.exeTime = time;
             this.currentSchedules[time] = newSchedEvent;
         }
-        delete this.currentSchedules[exeTime];
+        this.deleteSchedule(exeTime);
     }
     addSchedule(exeTime, scheduledEvent) {
-        /*example schedule
-        "1298190": {
-            exeTime: "1298190",
-            command: "Power",
-            reoccuring: true,
-            interval: 60, //min to add each time new schedule is added
-            desc: {
-                every: ["day", "9:00am"],
-                task: "toggle",
-                command: "power",
-            }
-        }*/
         this.currentSchedules[exeTime] = { ...scheduledEvent };
+    }
+    deleteSchedule(exeTime) {
+        const newSched = { ...this.currentSchedules };
+        newSched[exeTime] = null;
+        delete newSched[exeTime];
+        this.currentSchedules = newSched;
     }
     executeCommand(command) {
         SerialPort.executeCommand(command)
