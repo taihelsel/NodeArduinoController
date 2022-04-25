@@ -6,7 +6,13 @@ function ScheduleCard({ data }) {
     }
     const renderEvery = (arr) => {
         if (arr[0] === "day") {
-            return ["Every ", cardHighlight("day"), " at ", cardHighlight(arr[1])];
+            return ["Every ", cardHighlight(arr[0]), " at ", cardHighlight(arr[1])];
+        } else if (arr[0] === "hours" || arr[0] === "minutes") {
+            return ["Every ", cardHighlight(arr[1]), cardHighlight(arr[0])];
+        }
+        else {
+            console.error("something weird happened getting 'every' rendering cards");
+            return "";
         }
     }
     return (

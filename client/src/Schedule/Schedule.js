@@ -15,7 +15,7 @@ function Schedule({ updatePage }) {
             }).catch(err => {
                 console.log("handle err getting schedules", err);
             })
-    })
+    }, [])
     const backArrowClick = () => {
         updatePage("home");
     }
