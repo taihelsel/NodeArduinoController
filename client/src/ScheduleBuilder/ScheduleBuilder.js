@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "./ScheduleBuilder.css";
 import TODInput from './TODInput';
 import IntervalInput from './IntervalInput';
+import TempInput from './TempInput';
 function ScheduleBuilder({ updatePage }) {
     const [currentStep, setCurrentStep] = useState("schedule");
     const [selectedStepOption, setSelectedStepOption] = useState(null);
@@ -77,7 +78,7 @@ function ScheduleBuilder({ updatePage }) {
         }
     }
     const handleOptionClick = (nextStep, option) => e => {
-        console.log("next", nextStep);
+        console.log("option", option, "step", nextStep);
         setSelectedStepOption(option);
         if (nextStep === "tod-input") {
             const newSchedConfig = { ...schedConfig };
@@ -113,6 +114,12 @@ function ScheduleBuilder({ updatePage }) {
                     nextStep,
                 });
             }
+        }
+        if (nextStep === "temp-input") {
+            setNextAction({
+                showNext: true,
+                nextStep: option,
+            });
         }
         if (nextStep === "save") {
             if (option === "power") {
@@ -200,13 +207,16 @@ function ScheduleBuilder({ updatePage }) {
                 <div className="sched-step-container">
                     <h1 className="sched-step-title">Set Task</h1>
                     <div className="sched-step-body-row">
-                        <div onClick={handleOptionClick("temp-inc-input", "inc-temp-x")} id={selectedStepOption === "inc-temp-x" ? "sched-step-option-selected" : null} className="sched-step-option">Increase Temp By X</div>
-                        <div onClick={handleOptionClick("temp-target-input", "set-temp")} id={selectedStepOption === "set-temp" ? "sched-step-option-selected" : null} className="sched-step-option">Set Temp To X</div>
+                        <div onClick={handleOptionClick("temp-input", "inc-temp-x")} id={selectedStepOption === "inc-temp-x" ? "sched-step-option-selected" : null} className="sched-step-option">Increase Temp By X</div>
+                        <div onClick={handleOptionClick("temp-input", "set-temp")} id={selectedStepOption === "set-temp" ? "sched-step-option-selected" : null} className="sched-step-option">Set Temp To X</div>
                         <div onClick={handleOptionClick("save", "power")} id={selectedStepOption === "power" ? "sched-step-option-selected" : null} className="sched-step-option">Toggle Power</div>
-                        <div onClick={handleOptionClick("temp-dec-input", "dec-temp-x")} id={selectedStepOption === "dec-temp-x" ? "sched-step-option-selected" : null} className="sched-step-option">Decrease Temp By X</div>
+                        <div onClick={handleOptionClick("temp-input", "dec-temp-x")} id={selectedStepOption === "dec-temp-x" ? "sched-step-option-selected" : null} className="sched-step-option">Decrease Temp By X</div>
                     </div>
                 </div>
             )
+        }
+        if (step === "inc-temp-x" || step === "set-temp" || step === "dec-temp-x") {
+            return <TempInput tempType={step} />
         }
     }
     return (
