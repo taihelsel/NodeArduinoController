@@ -49,7 +49,7 @@ function TempInput({ tempType, tempVal, handleTempUpdate }) {
             <h1 className="sched-step-title">Set Temp</h1>
             <div className="sched-step-body-row">
                 <strong className="temp-input-labels">{labels[0]}</strong>
-                <input placeholder={labels[1]} className="temp-input" onChange={handleInput} value={tempVal.temp} type="text" />
+                <input pattern="[0-9]*" placeholder={labels[1]} className="temp-input" onChange={handleInput} value={tempVal.temp} type="number" />
                 <strong className="temp-input-labels">°</strong>
 
             </div>

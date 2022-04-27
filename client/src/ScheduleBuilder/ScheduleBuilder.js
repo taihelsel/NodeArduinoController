@@ -99,7 +99,7 @@ function ScheduleBuilder({ updatePage }) {
             .then(res => res.json())
             .then(data => {
                 updatePage("schedule");
-                alert(data.msg);
+                // alert(data.msg);
             });
     }
     const handleNext = () => {

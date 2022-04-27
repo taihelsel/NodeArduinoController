@@ -46,7 +46,7 @@ const IntervalInput = ({ intervalType, intervalVal, handleIntervalUpdate }) => {
             <h1 className="sched-step-title">Set Interval</h1>
             <div className="sched-step-body-row">
                 <strong className="interval-input-labels">Every</strong>
-                <input placeholder={label} className="interval-input" onChange={handleInput} value={intervalVal.value} type="text" />
+                <input pattern="[0-9]*" type="number" placeholder={label} className="interval-input" onChange={handleInput} value={intervalVal.value} />
                 <strong className="interval-input-labels">{label}</strong>
             </div>
         </div>

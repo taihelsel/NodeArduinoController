@@ -94,7 +94,7 @@ function Schedule({ updatePage }) {
         })
             .then(res => res.json())
             .then(({ msg }) => {
-                alert(msg);
+                // alert(msg);
                 updateSchedules();
             }).catch(err => {
                 console.log("handle err getting schedules", err);

@@ -17,7 +17,7 @@ function Home({ updatePage }) {
             .then(res => res.json())
             .then(data => {
                 setLoading(false);
-                alert(data.msg)
+                // alert(data.msg)
             });
     }
     const powerClick = () => {
@@ -29,7 +29,7 @@ function Home({ updatePage }) {
         genericPOST(url);
     }
     const handleTimerClick = () => {
-        alert("handle timer");
+        // alert("handle timer");
     }
     const handleSchedClick = () => {
         updatePage("schedule")

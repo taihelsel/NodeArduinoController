@@ -46,9 +46,9 @@ function TODInput({ optionClick, selectedOption, setSchedTime, schedTime }) {
             <h1 className="sched-step-title">Set Time</h1>
             <div className="sched-step-body-column">
                 <div className="tod-input-container">
-                    <input placeholder="Hour" className="tod-input" onChange={updateHour} value={schedTime.hour} type="text" />
+                    <input pattern="[0-9]*" placeholder="Hour" className="tod-input" onChange={updateHour} value={schedTime.hour} type="number" />
                     <strong>:</strong>
-                    <input placeholder="Minute" className="tod-input" onChange={updateMin} value={schedTime.minute} type="text" />
+                    <input pattern="[0-9]*" placeholder="Minute" className="tod-input" onChange={updateMin} value={schedTime.minute} type="number" />
                 </div>
                 <div className="sched-step-option-container">
                     <div onClick={optionClick("set-task", "am")} id={selectedOption === "am" ? "sched-step-option-selected" : null} className="sched-step-option">AM</div>
