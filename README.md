@@ -36,19 +36,21 @@
 | Path|Method|Expects | Response| Result
 | --- | --- | --- |---|---|
 | /power/| POST | N/A |`{ msg:  "Power Toggled" }`| Toggles AC Power
-| /schedule/| POST | `{ exeTime: int,  scheduledEvent: str }`| `{ msg:  "Scheduler set" }`| Adds command to scheduler
+| /schedule/| POST | `{ exeTime: epoch time as int,  scheduledEvent: command to execute as string}`| `{ msg:  "Scheduler set" }`| Adds command to scheduler
 | /schedule/list/| GET| N/A | **see below** | Fetches current schedules
-| /schedule/list/| DELETE | `{list: [array of epoch exe times]` | `{"msg":"Deleted item"}`| Deletes one or more scheduled events
+| /schedule/list/| DELETE | `{list: [array of epoch exe times as ints]` | `{"msg":"Deleted item"}`| Deletes one or more scheduled events
+| /temp/inc5/| POST | N/A | `{ msg:  "Temp changed successfully"}`|  Increases AC temp by 5
+| /temp/dec5/| POST | N/A | `{ msg:  "Temp changed successfully"}`|  Decreases AC temp by 5
+| /temp/custom/| POST | `{temp: temp value as string} `| `{ msg:  "Temp changed successfully" }`|  Sets AC temp to custom value
 
-> Example */schedule/list/* response  
-Where exeTime is epoch time to execute
+> Example */schedule/list/* response
 ```
  '1657129487911': {                                                                      
-	exeTime: 1657129487911,          
-	command: 'Power',
-    reoccuring: true,                                                                     
-    interval: 60,                                                                              
-    desc: { every: [Array], task: 'Toggle', command: 'Power' }                               
+	exeTime: 1657129487911,  //epoch time to execute event ( also used as key in scheduler )        
+	command: 'Power', // command to execute
+    reoccuring: true, // true=keep command for next interval. false=delete event after              execution                                               
+    interval: 60, //event interval in minutes                                                                             
+    desc: { every: [Array], task: 'Toggle', command: 'Power' } //information to be displayed on schedule page                          
 } 
 ```
 
