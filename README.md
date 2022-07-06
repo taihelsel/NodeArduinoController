@@ -1,9 +1,11 @@
+
+
 #  Setup
 
 ###  Build and run client
-
- 1. `cd client && npm install && npm run build && npm start`
- 2. By default, the project will start on localhost:3000
+ 1. Go to project root directory.
+ 2. `cd client && npm install && npm run build && npm start`
+ 3. By default, the project will start on localhost:3000
 
 ### Running server
 
