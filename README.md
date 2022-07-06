@@ -48,7 +48,7 @@
  '1657129487911': {                                                                      
 	exeTime: 1657129487911,  //epoch time to execute event ( also used as key in scheduler )        
 	command: 'Power', // command to execute
-    reoccuring: true, // true=keep command for next interval. false=delete event after              execution                                               
+    reoccuring: true, // true=keep command for next interval. false=delete event after execution                                               
     interval: 60, //event interval in minutes                                                                             
     desc: { every: [Array], task: 'Toggle', command: 'Power' } //information to be displayed on schedule page                          
 } 
