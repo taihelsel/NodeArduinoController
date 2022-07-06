@@ -4,6 +4,7 @@
 <div align="center">
     <img src="https://raw.githubusercontent.com/taihelsel/NodeArduinoController/main/previewImgs/ac-control-1.PNG"/>
 </div>
+
 ##### Table of Contents  
 1. [Project Overview](#project-overview)  
     - [Problem](#problem)
