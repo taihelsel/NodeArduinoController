@@ -21,6 +21,7 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
 - [Data Transfer Cable](https://www.amazon.com/Data-Sync-Cable-Arduino-Microcontroller/dp/B01N9IP8LF)
 
 ### Software
+- React.js for the front end
 - Node.js for the back end
 - Ubuntu server 20.10 for the OS
 - pm2 to manage node.js instance
