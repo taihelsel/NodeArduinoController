@@ -31,6 +31,26 @@
  > can be accessed through pm2 using the name 'nac' 
  > ex) sudo pm2 monit nac
 
+
+# Routes
+| Path|Method|Expects | Response| Result
+| --- | --- | --- |---|---|
+| /power/| POST | N/A |`{ msg:  "Power Toggled" }`| Toggles AC Power
+| /schedule/| POST | `{ exeTime: int,  scheduledEvent: str }`| `{ msg:  "Scheduler set" }`| Adds command to scheduler
+| /schedule/list/| GET| N/A | **see below** | Fetches current schedules
+
+> Example */schedule/list/* response
+> Where exeTime is epoch time to execute
+```
+ '1657129487911': {                                                                      
+	exeTime: 1657129487911,          
+	command: 'Power',
+    reoccuring: true,                                                                     
+    interval: 60,                                                                              
+    desc: { every: [Array], task: 'Toggle', command: 'Power' }                               
+} 
+```
+
 <details>
 <summary> <h1>Project Screenshots</h1></summary>
 
