@@ -25,6 +25,7 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
 - Ubuntu server 20.10 for the OS
 - pm2 to manage node.js instance
 - Uses [node-serialport](https://github.com/serialport/node-serialport) to exchange data between the arduino and the rasberry pi
+- Uses [Arduino-IRremote](https://github.com/Arduino-IRremote/Arduino-IRremote) to send and log IR codes. (see ArduinoFiles)
 
 #  Setup
 
