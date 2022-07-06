@@ -4,6 +4,23 @@
 <div align="center">
     <img src="https://raw.githubusercontent.com/taihelsel/NodeArduinoController/main/previewImgs/ac-control-1.PNG"/>
 </div>
+##### Table of Contents  
+1. [Project Overview](#project-overview)  
+    - [Problem](#problem)
+    - [Solution](#solution)
+2. [Project Build](#project-build)  
+    - [Parts](#parts)
+    - [Software](#software)
+    - [Basic Overview](#basic-overview)
+3. [Setup](#setup)  
+    - [Build and run client](#build-and-run-client)
+    - [Running server](#running-server)
+    - [Running server with client](#running-server-with-client)
+    - [Running with pm2](#running-with-pm2)
+4. [Routes](#routes)  
+5. [Project Screenshots](#project-screenshots)
+
+
 
 #  Project Overview
 ### Problem:
