@@ -12,7 +12,7 @@ My ancient AC unit is not very smart. It gets way too cold at night and way too 
 By connecting a **microcontroller** like an **arduino** to an IR blaster, I can effectively turn my inefficient ac into a smart device.
 
 # Project Build
-### 
+
 ### Parts
 - [Raspberry Pi 4](https://thepihut.com/products/raspberry-pi-4-model-b?variant=31994565689406)
 - [Arduino](https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/ref=sr_1_1?crid=3PJON1IHBWXBF&keywords=arduino+r3&qid=1657128372&s=industrial&sprefix=arduino+r3%2Cindustrial%2C123&sr=1-1)
@@ -26,6 +26,15 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
 - pm2 to manage node.js instance
 - Uses [node-serialport](https://github.com/serialport/node-serialport) to exchange data between the arduino and the rasberry pi
 - Uses [Arduino-IRremote](https://github.com/Arduino-IRremote/Arduino-IRremote) to send and log IR codes. (see ArduinoFiles)
+
+### Basic Overview
+1. Arduino is flashed with the /ArduinoFiles/SimpleReceiver.ino file and connected to an IR Reciever
+2. Codes are captured from the targets remote into the IR Reciever and logged
+3. Arduino is flashed with the /ArduinoFiles/SimpleSender.ino file and connected to an IR Transmitter 
+4. IR Transmitter is pointed at target
+5. Arduino is connected to Raspberry Pi via Data Transfer Cable
+6. Client build scripts are ran
+7. Node server is started with pm2
 
 #  Setup
 
