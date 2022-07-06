@@ -5,6 +5,12 @@
     <img src="https://raw.githubusercontent.com/taihelsel/NodeArduinoController/main/previewImgs/ac-control-1.PNG"/>
 </div>
 
+#  Project Overview
+### Problem:
+My ancient AC unit is not very smart. It gets way too cold at night and way too hot in the morning. Another issue is, I don't want the AC running if I'm not home. With the current setup, I'm not able to remotely access the ac or set schedules. Lastly.. I'm always losing the remote.
+### Solution:
+By connecting a **microcontroller** like an **arduino** to an IR blaster, I can effectively turn my inefficient ac into a smart device.
+
 #  Setup
 
 ###  Build and run client
