@@ -1,12 +1,12 @@
 #  Setup
 
-###  Running front end
+###  Running client
 
  1. `cd client && npm install`
  2. `npm start`
  3. By default, the project will start on localhost:3000
 
-### Running back end with front end
+### Running server with client
 
  1. Go to project root directory.
  2. Run `cd server && npm install && cd ..` 
