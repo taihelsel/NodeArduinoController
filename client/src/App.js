@@ -5,7 +5,7 @@ import Home from "./Home/Home.js";
 import Schedule from './Schedule/Schedule';
 import ScheduleBuilder from './ScheduleBuilder/ScheduleBuilder';
 function App() {
-  const [page, setPage] = useState("schedulebuilder");
+  const [page, setPage] = useState("home");
   const updatePage = (newPage) => {
     setPage(newPage);
   }
