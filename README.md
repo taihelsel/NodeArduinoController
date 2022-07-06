@@ -1,16 +1,21 @@
 #  Setup
 
-###  Running client
+###  Build and run client
 
- 1. `cd client && npm install`
- 2. `npm start`
- 3. By default, the project will start on localhost:3000
+ 1. `cd client && npm install && npm run build && npm start`
+ 2. By default, the project will start on localhost:3000
+
+### Running server
+
+ 1. Go to project root directory.
+ 2. Run `cd server && npm install && sudo node server.js`  
 
 ### Running server with client
 
  1. Go to project root directory.
  2. Run `cd server && npm install && cd ..` 
- 3. Run `cd client && npm run build && cd ../server && node server.js` to build front end and start back end
+ 3. Run `cd client && npm run build && cd ../server && sudo node server.js` 
+ > builds client and starts server
 
 
 <details>
