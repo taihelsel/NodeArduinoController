@@ -38,6 +38,7 @@
 | /power/| POST | N/A |`{ msg:  "Power Toggled" }`| Toggles AC Power
 | /schedule/| POST | `{ exeTime: int,  scheduledEvent: str }`| `{ msg:  "Scheduler set" }`| Adds command to scheduler
 | /schedule/list/| GET| N/A | **see below** | Fetches current schedules
+| /schedule/list/| DELETE | `{list: [array of epoch exe times]` | `{"msg":"Deleted item"}`| Deletes one or more scheduled events
 
 > Example */schedule/list/* response  
 Where exeTime is epoch time to execute
