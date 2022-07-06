@@ -28,7 +28,9 @@
  1. Go to project root directory.
  2. Run `cd server && sudo pm2 start nac-app-conf.json` 
  > pm2 must be run with sudo so node can read from serialport
+
  > can be accessed through pm2 using the name 'nac' 
+ 
  > ex) sudo pm2 monit nac
 
 
@@ -40,6 +42,7 @@
 | /schedule/list/| GET| N/A | **see below** | Fetches current schedules
 
 > Example */schedule/list/* response
+
 > Where exeTime is epoch time to execute
 ```
  '1657129487911': {                                                                      
