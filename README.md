@@ -28,9 +28,9 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
 - Uses [Arduino-IRremote](https://github.com/Arduino-IRremote/Arduino-IRremote) to send and log IR codes. (see ArduinoFiles)
 
 ### Basic Overview
-1. Arduino is flashed with the /ArduinoFiles/SimpleReceiver.ino file and connected to an IR Reciever
+1. Arduino is flashed with the */ArduinoFiles/SimpleReceiver.ino* file and connected to an IR Reciever
 2. Codes are captured from the targets remote into the IR Reciever and logged
-3. Arduino is flashed with the /ArduinoFiles/SimpleSender.ino file and connected to an IR Transmitter 
+3. Arduino is flashed with the */ArduinoFiles/SimpleSender.ino* file and connected to an IR Transmitter 
 4. IR Transmitter is pointed at target
 5. Arduino is connected to Raspberry Pi via Data Transfer Cable
 6. Client build scripts are ran
