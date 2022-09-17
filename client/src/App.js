@@ -1,9 +1,9 @@
 import './App.css';
 import React, { useState } from 'react';
 
-import Home from "./Home/Home.js";
-import Schedule from './Schedule/Schedule';
-import ScheduleBuilder from './ScheduleBuilder/ScheduleBuilder';
+import Home from "./Pages/Home/Home.js";
+import Schedule from "./Pages/Schedule/Schedule";
+import ScheduleBuilder from "./Pages/ScheduleBuilder/ScheduleBuilder";
 function App() {
   const [page, setPage] = useState("home");
   const updatePage = (newPage) => {
