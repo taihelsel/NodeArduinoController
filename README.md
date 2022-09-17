@@ -115,3 +115,10 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
 ![page3](https://raw.githubusercontent.com/taihelsel/NodeArduinoController/main/previewImgs/ac-control-3.PNG)
     
 </details>
+
+<details>
+<summary> <h1>Future</h1></summary>
+- Host on AWS
+- Add database & store current temp
+- Remove Set timer btn
+</details>
