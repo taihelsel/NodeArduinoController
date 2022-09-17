@@ -119,5 +119,5 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
     <summary> <h1>Future</h1></summary>
     - Host on AWS
     - Add database & store current temp
-    - Remove Set timer btn
+    - Add auto sync on an interval
 </details>
