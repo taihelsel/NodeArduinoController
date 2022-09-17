@@ -120,4 +120,5 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
     - Host on AWS
     - Add database & store current temp
     - Add auto sync on an interval
+    - Add code capturing
 </details>
