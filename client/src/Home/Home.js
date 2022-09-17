@@ -18,15 +18,6 @@ function Home({ updatePage }) {
         currentVal: 70,
     });
     const [loading, setLoading] = useState(false);
-    const genericPOST = (url) => {
-        setLoading(true);
-        fetch(url, { method: "POST" })
-            .then(res => res.json())
-            .then(data => {
-                setLoading(false);
-                // alert(data.msg)
-            });
-    }
     const powerClick = () => {
         setLoading(true);
         togglePower(function (success) {
@@ -36,15 +27,19 @@ function Home({ updatePage }) {
         })
     }
     const decreaseTempClick = () => {
+        setLoading(true);
         const amount = 5; //decrease temp by 5 degrees
         decreaseTemp(amount, function (success) {
+            setLoading(false);
             if (success) alert("Temp decreased");
             else alert("Error updating temp");
         });
     }
     const increaseTempClick = () => {
+        setLoading(true);
         const amount = 5; //increase temp by 5 degrees
         increaseTemp(amount, function (success) {
+            setLoading(false);
             if (success) alert("Temp increased");
             else alert("Error updating temp");
         });
