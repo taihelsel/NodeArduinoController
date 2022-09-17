@@ -25,7 +25,7 @@
 
 #  Project Overview
 ### Problem:
-My ancient AC unit is not very smart. It gets way too cold at night and way too hot in the morning. Another issue is, I don't want the AC running if I'm not home. With the current setup, I'm not able to remotely access the ac or set schedules. Lastly.. I'm always losing the remote.
+My ancient AC unit is not very smart. It gets way too cold at night and way too hot in the morning. Another issue is I don't want the AC running if I'm not home. With the current setup, I'm not able to remotely access the ac or set schedules. Lastly.. I'm always losing the remote.
 ### Solution:
 By connecting a **microcontroller** like an **arduino** to an IR blaster, I can effectively turn my inefficient ac into a smart device.
 
@@ -115,10 +115,9 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
 ![page3](https://raw.githubusercontent.com/taihelsel/NodeArduinoController/main/previewImgs/ac-control-3.PNG)
     
 </details>
-
 <details>
-<summary> <h1>Future</h1></summary>
-- Host on AWS
-- Add database & store current temp
-- Remove Set timer btn
+    <summary> <h1>Future</h1></summary>
+    - Host on AWS
+    - Add database & store current temp
+    - Remove Set timer btn
 </details>
