@@ -1,9 +1,7 @@
 import PowerBtn from "./PowerBtn";
-import MainControls from "./MainControls";
-import SliderControls from "./SliderControls";
+import HomeContent from "./HomeContent";
 
 export {
     PowerBtn,
-    MainControls,
-    SliderControls,
+    HomeContent,
 }
