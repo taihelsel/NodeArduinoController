@@ -1,32 +1,48 @@
 import React, { useState } from 'react';
+import "./Home.css";
+import {
+    togglePower,
+    increaseTemp,
+    decreaseTemp,
+} from '../API';
+/* Components */
 import PowerBtn from "../Components/PowerBtn/PowerBtn";
 import TempSlider from "../Components/TempSlider/TempSlider";
 import Temp5deg from "../Components/Temp5deg/Temp5deg";
 import SetTimerBtn from "../Components/SetTimerBtn/SetTimerBtn";
 import CustomSched from "../Components/CustomSchedBtn/CustomSchedBtn";
-import "./Home.css";
+
 function Home({ updatePage }) {
     const [tempVal, setTempVal] = useState({
         lastVal: 70,
         currentVal: 70,
     });
     const [loading, setLoading] = useState(false);
-    const genericPOST = (url) => {
-        setLoading(true);
-        fetch(url, { method: "POST" })
-            .then(res => res.json())
-            .then(data => {
-                setLoading(false);
-                // alert(data.msg)
-            });
-    }
     const powerClick = () => {
-        const url = "/power/";
-        genericPOST(url);
+        setLoading(true);
+        togglePower(function (success) {
+            setLoading(false);
+            if (success) alert("Power toggled");
+            else alert("Error updating power state");
+        })
     }
-    const handle5degClick = direction => e => {
-        const url = `/temp/${direction === "cold" ? "dec5" : "inc5"}`
-        genericPOST(url);
+    const decreaseTempClick = () => {
+        setLoading(true);
+        const amount = 5; //decrease temp by 5 degrees
+        decreaseTemp(amount, function (success) {
+            setLoading(false);
+            if (success) alert("Temp decreased");
+            else alert("Error updating temp");
+        });
+    }
+    const increaseTempClick = () => {
+        setLoading(true);
+        const amount = 5; //increase temp by 5 degrees
+        increaseTemp(amount, function (success) {
+            setLoading(false);
+            if (success) alert("Temp increased");
+            else alert("Error updating temp");
+        });
     }
     const handleTimerClick = () => {
         // alert("handle timer");
@@ -88,8 +104,8 @@ function Home({ updatePage }) {
             <TempSlider handleSliderChange={handleSliderChange} tempVal={tempVal.currentVal} />
             <div id="controls-container">
                 <div className="home-btns-row">
-                    <Temp5deg handleClick={handle5degClick} direction={"cold"} />
-                    <Temp5deg handleClick={handle5degClick} direction={"hot"} />
+                    <Temp5deg handleClick={decreaseTempClick} direction={"cold"} />
+                    <Temp5deg handleClick={increaseTempClick} direction={"hot"} />
                 </div>
                 <div className="home-btns-row">
                     <SetTimerBtn handleClick={handleTimerClick} />

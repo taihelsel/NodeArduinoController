@@ -1,10 +1,11 @@
 // POST
-module.exports.inc5 = (req, res) => {
-    // @route  POST /temp/inc5
-    // @desc   Increase temp by 5
+module.exports.inc = (req, res) => {
+    // @route  POST /temp/inc
+    // @desc   Increase temp by given amount
     // @access Public
     try {
-        req.controller.executeCommand("temp+5");
+        const { amount } = req.body;
+        req.controller.executeCommand(`temp+${amount}`);
         return res.status(201).json({ msg: "Temp changed successfully" });
     } catch (err) {
         console.log(err);
@@ -12,12 +13,13 @@ module.exports.inc5 = (req, res) => {
     }
 }
 
-module.exports.dec5 = (req, res) => {
-    // @route  POST /temp/dec5
-    // @desc   Decrease temp by 5
+module.exports.dec = (req, res) => {
+    // @route  POST /temp/dec
+    // @desc   Decrease temp by given amount
     // @access Public
     try {
-        req.controller.executeCommand("temp-5");
+        const { amount } = req.body;
+        req.controller.executeCommand(`temp-${amount}`);;
         return res.status(201).json({ msg: "Temp changed successfully" });
     } catch (err) {
         console.log(err);
