@@ -89,8 +89,8 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
 | /schedule/| POST | `{ exeTime: epoch time as int,  scheduledEvent: command to execute as string}`| `{ msg:  "Scheduler set" }`| Adds command to scheduler
 | /schedule/list/| GET| N/A | **see below** | Fetches current schedules
 | /schedule/list/| DELETE | `{list: [array of epoch exe times as ints]` | `{"msg":"Deleted item"}`| Deletes one or more scheduled events
-| /temp/inc5/| POST | N/A | `{ msg:  "Temp changed successfully"}`|  Increases AC temp by 5
-| /temp/dec5/| POST | N/A | `{ msg:  "Temp changed successfully"}`|  Decreases AC temp by 5
+| /temp/inc/| POST | N/A | `{ msg:  "Temp changed successfully"}`|  Increases AC temp by X
+| /temp/dec/| POST | N/A | `{ msg:  "Temp changed successfully"}`|  Decreases AC temp by X
 | /temp/custom/| POST | `{temp: temp value as string} `| `{ msg:  "Temp changed successfully" }`|  Sets AC temp to custom value
 
 > Example */schedule/list/* response
