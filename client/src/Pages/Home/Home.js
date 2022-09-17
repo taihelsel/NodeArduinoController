@@ -9,8 +9,8 @@ import {
 /* Components */
 import {
     PowerBtn,
-    Temp5deg,
-    ManageSchedulesBtn,
+    MainControls,
+    SliderControls,
 } from "./components";
 import TempSlider from "../../Components/TempSlider/TempSlider";
 import LoadingWheel from '../../Components/LoadingWheel/LoadingWheel';
@@ -76,32 +76,25 @@ function Home({ updatePage }) {
             } else alert("Error setting temp");
         })
     }
-    return tempVal.currentVal === tempVal.lastVal ? (
+    return (
         <section id="Home">
             <LoadingWheel loadingStatus={loading} />
             <PowerBtn handlePower={powerClick} />
             <TempSlider handleSliderChange={handleSliderChange} tempVal={tempVal.currentVal} />
-            <div id="controls-container">
-                <div className="home-btns-row">
-                    <Temp5deg handleClick={decreaseTempClick} direction={"cold"} />
-                    <Temp5deg handleClick={increaseTempClick} direction={"hot"} />
-                </div>
-                <div className="home-btns-row">
-                    <ManageSchedulesBtn handleClick={handleSchedClick} />
-                </div>
-            </div>
-        </section>
-    ) : (
-        <section id="Home">
-            <LoadingWheel loadingStatus={loading} />
-            <PowerBtn handlePower={powerClick} />
-            <TempSlider handleSliderChange={handleSliderChange} tempVal={tempVal.currentVal} />
-            <div id="controls-container">
-                <div className="home-btns-row">
-                    <div className="temp-slider-controls temp-slider-cancel" onClick={handleSliderCancel}><h3>Cancel</h3></div>
-                    <div className="temp-slider-controls temp-slider-confirm" onClick={handleSliderConfirm}><h3>Confirm</h3></div>
-                </div>
-            </div>
+            {
+                tempVal.currentVal === tempVal.lastVal ? (
+                    <MainControls
+                        decreaseTempClick={decreaseTempClick}
+                        increaseTempClick={increaseTempClick}
+                        handleSchedClick={handleSchedClick}
+                    />
+                ) : (
+                    <SliderControls
+                        handleSliderCancel={handleSliderCancel}
+                        handleSliderConfirm={handleSliderConfirm}
+                    />
+                )
+            }
         </section>
     )
 }
