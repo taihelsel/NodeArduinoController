@@ -10,8 +10,7 @@ import {
 import PowerBtn from "../Components/PowerBtn/PowerBtn";
 import TempSlider from "../Components/TempSlider/TempSlider";
 import Temp5deg from "../Components/Temp5deg/Temp5deg";
-import SetTimerBtn from "../Components/SetTimerBtn/SetTimerBtn";
-import CustomSched from "../Components/CustomSchedBtn/CustomSchedBtn";
+import ManageSchedulesBtn from "../Components/ManageSchedulesBtn/ManageSchedulesBtn";
 
 function Home({ updatePage }) {
     const [tempVal, setTempVal] = useState({
@@ -44,9 +43,6 @@ function Home({ updatePage }) {
             if (success) alert("Temp increased");
             else alert("Error updating temp");
         });
-    }
-    const handleTimerClick = () => {
-        // alert("handle timer");
     }
     const handleSchedClick = () => {
         updatePage("schedule")
@@ -101,8 +97,7 @@ function Home({ updatePage }) {
                     <Temp5deg handleClick={increaseTempClick} direction={"hot"} />
                 </div>
                 <div className="home-btns-row">
-                    <SetTimerBtn handleClick={handleTimerClick} />
-                    <CustomSched handleClick={handleSchedClick} />
+                    <ManageSchedulesBtn handleClick={handleSchedClick} />
                 </div>
             </div>
         </section>
