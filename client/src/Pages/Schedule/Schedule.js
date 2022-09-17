@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import "./Schedule.css";
-import BackArrow from "../Components/BackArrow/BackArrow";
-import ScheduleCard from "../Components/ScheduleCard/ScheduleCard";
-import AddSchedBtn from "../Components/AddSchedBtn/AddSchedBtn";
-import TrashBtn from "../Components/TrashBtn/TrashBtn";
-import Confirmation from '../Components/Confirmation/Confirmation';
+import BackArrow from "../../Components/BackArrow/BackArrow";
+import ScheduleCard from "../../Components/ScheduleCard/ScheduleCard";
+import AddSchedBtn from "../../Components/AddSchedBtn/AddSchedBtn";
+import TrashBtn from "../../Components/TrashBtn/TrashBtn";
+import Confirmation from '../../Components/Confirmation/Confirmation';
 function Schedule({ updatePage }) {
     const [editMode, setEditMode] = useState(false);
     const [toDelete, setToDelete] = useState([]);
