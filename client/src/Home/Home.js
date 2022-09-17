@@ -10,7 +10,7 @@ import {
 import PowerBtn from "../Components/PowerBtn/PowerBtn";
 import TempSlider from "../Components/TempSlider/TempSlider";
 import Temp5deg from "../Components/Temp5deg/Temp5deg";
-import CustomSched from "../Components/CustomSchedBtn/CustomSchedBtn";
+import ManageSchedulesBtn from "../Components/ManageSchedulesBtn/ManageSchedulesBtn";
 
 function Home({ updatePage }) {
     const [tempVal, setTempVal] = useState({
@@ -97,7 +97,7 @@ function Home({ updatePage }) {
                     <Temp5deg handleClick={increaseTempClick} direction={"hot"} />
                 </div>
                 <div className="home-btns-row">
-                    <CustomSched handleClick={handleSchedClick} />
+                    <ManageSchedulesBtn handleClick={handleSchedClick} />
                 </div>
             </div>
         </section>
