@@ -1,10 +1,10 @@
 const express = require("express"), router = express.Router();
-const { inc5, dec5, custom } = require("../controllers/tempControllers.js");
+const { inc, dec5, custom } = require("../controllers/tempControllers.js");
 
-// @route  POST /temp/inc5
-// @desc   Increase temp by 5
+// @route  POST /temp/inc
+// @desc   Increase temp by given amount
 // @access Public
-router.post("/inc5", inc5);
+router.post("/inc", inc);
 
 // @route  POST /temp/dec5
 // @desc   Decrease temp by 5
