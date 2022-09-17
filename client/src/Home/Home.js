@@ -4,6 +4,7 @@ import {
     togglePower,
     increaseTemp,
     decreaseTemp,
+    setCustomTemp
 } from '../API';
 /* Components */
 import PowerBtn from "../Components/PowerBtn/PowerBtn";
@@ -64,25 +65,17 @@ function Home({ updatePage }) {
     }
     const handleSliderConfirm = () => {
         setLoading(true);
-        const data = { "temp": tempVal.currentVal };
-        const url = "/temp/custom/";
-        fetch(url, {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
+        const newTemp = tempVal.currentVal;
+        setCustomTemp(newTemp, function (success) {
+            setLoading(false);
+            if (success) {
                 setTempVal({
                     lastVal: tempVal.currentVal,
                     currentVal: tempVal.currentVal,
                 });
-                setLoading(false);
-                alert(data.msg);
-            });
-
+                alert("Temp set");
+            } else alert("Error setting temp");
+        })
     }
     const loadingWheel = (loadingStatus) => {
         return loadingStatus ? (
