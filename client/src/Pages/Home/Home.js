@@ -5,12 +5,12 @@ import {
     increaseTemp,
     decreaseTemp,
     setCustomTemp
-} from '../API';
+} from '../../API';
 /* Components */
-import PowerBtn from "../Components/PowerBtn/PowerBtn";
-import TempSlider from "../Components/TempSlider/TempSlider";
-import Temp5deg from "../Components/Temp5deg/Temp5deg";
-import ManageSchedulesBtn from "../Components/ManageSchedulesBtn/ManageSchedulesBtn";
+import PowerBtn from "../../Components/PowerBtn/PowerBtn";
+import TempSlider from "../../Components/TempSlider/TempSlider";
+import Temp5deg from "../../Components/Temp5deg/Temp5deg";
+import ManageSchedulesBtn from "../../Components/ManageSchedulesBtn/ManageSchedulesBtn";
 
 function Home({ updatePage }) {
     const [tempVal, setTempVal] = useState({
