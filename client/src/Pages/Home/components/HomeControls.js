@@ -19,7 +19,7 @@ export default function HomeControls({
         decreaseTemp(amount, function (success) {
             setLoading(false);
             if (success) {
-                updateTemp(currentTemp - 5);
+                updateTemp(currentTemp - amount);
                 alert("Temp decreased");
             }
             else alert("Error updating temp");
@@ -31,7 +31,7 @@ export default function HomeControls({
         increaseTemp(amount, function (success) {
             setLoading(false);
             if (success) {
-                updateTemp(currentTemp + 5);
+                updateTemp(currentTemp + amount);
                 alert("Temp increased");
             }
             else alert("Error updating temp");
