@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import "./Home.css";
+import { togglePower } from '../API';
+/* Components */
 import PowerBtn from "../Components/PowerBtn/PowerBtn";
 import TempSlider from "../Components/TempSlider/TempSlider";
 import Temp5deg from "../Components/Temp5deg/Temp5deg";
 import SetTimerBtn from "../Components/SetTimerBtn/SetTimerBtn";
 import CustomSched from "../Components/CustomSchedBtn/CustomSchedBtn";
-import "./Home.css";
+
 function Home({ updatePage }) {
     const [tempVal, setTempVal] = useState({
         lastVal: 70,
@@ -21,8 +24,12 @@ function Home({ updatePage }) {
             });
     }
     const powerClick = () => {
-        const url = "/power/";
-        genericPOST(url);
+        setLoading(true);
+        togglePower(function(success){
+            setLoading(false);
+            if(success) alert("Power toggled");
+            else alert("Error updating power state");
+        })
     }
     const handle5degClick = direction => e => {
         const url = `/temp/${direction === "cold" ? "dec5" : "inc5"}`
