@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import "./Home.css";
-import { togglePower, increaseTemp } from '../API';
+import {
+    togglePower,
+    increaseTemp,
+    decreaseTemp,
+} from '../API';
 /* Components */
 import PowerBtn from "../Components/PowerBtn/PowerBtn";
 import TempSlider from "../Components/TempSlider/TempSlider";
@@ -25,19 +29,23 @@ function Home({ updatePage }) {
     }
     const powerClick = () => {
         setLoading(true);
-        togglePower(function(success){
+        togglePower(function (success) {
             setLoading(false);
-            if(success) alert("Power toggled");
+            if (success) alert("Power toggled");
             else alert("Error updating power state");
         })
     }
-    const decreaseTempClick = e=> {
-        genericPOST("/temp/dec5");
+    const decreaseTempClick = () => {
+        const amount = 5; //decrease temp by 5 degrees
+        decreaseTemp(amount, function (success) {
+            if (success) alert("Temp decreased");
+            else alert("Error updating temp");
+        });
     }
-    const increaseTempClick = e => {
+    const increaseTempClick = () => {
         const amount = 5; //increase temp by 5 degrees
-        increaseTemp(amount, function(success){
-            if(success) alert("Temp increased");
+        increaseTemp(amount, function (success) {
+            if (success) alert("Temp increased");
             else alert("Error updating temp");
         });
     }
