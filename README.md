@@ -121,4 +121,5 @@ By connecting a **microcontroller** like an **arduino** to an IR blaster, I can 
     - Add database & store current temp
     - Add auto sync on an interval
     - Add code capturing
+    - Add macros
 </details>
