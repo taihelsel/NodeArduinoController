@@ -1,5 +1,4 @@
-import "./PowerBtn.css";
-function PowerBtn({ handlePower }) {
+export default function PowerBtn({ handlePower }) {
     return (
         <div onClick={handlePower} className="power-btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="65" height="65">
@@ -14,4 +13,3 @@ function PowerBtn({ handlePower }) {
         </div>
     )
 }
-export default PowerBtn;
