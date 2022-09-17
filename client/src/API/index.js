@@ -7,8 +7,8 @@ import decreaseTemp from "./decreaseTemp";
 import setCustomTemp from "./setCustomTemp";
 
 export {
-    togglePower,
-    increaseTemp,
-    decreaseTemp,
-    setCustomTemp,
-}
+  togglePower,
+  increaseTemp,
+  decreaseTemp,
+  setCustomTemp,
+};

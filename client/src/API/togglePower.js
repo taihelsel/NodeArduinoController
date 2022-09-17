@@ -1,12 +1,12 @@
-export default function togglePower(cb){
-    fetch("/power/", { 
-        method: "POST" 
-    })
-    .then(res => res.json())
+export default function togglePower(cb) {
+  fetch("/power/", {
+    method: "POST",
+  })
+    .then((res) => res.json())
     .then((data) => {
-        cb(true);
+      cb(true);
     })
-    .catch(err=>{
-        cb(false);
+    .catch((err) => {
+      cb(false);
     });
 }
