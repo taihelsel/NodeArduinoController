@@ -1,3 +1,4 @@
+import React from "react";
 import { CircleSlider } from "react-circle-slider";
 import "./TempSlider.css";
 

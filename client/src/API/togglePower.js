@@ -3,10 +3,10 @@ export default function togglePower(cb) {
     method: "POST",
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       cb(true);
     })
-    .catch((err) => {
+    .catch(() => {
       cb(false);
     });
 }

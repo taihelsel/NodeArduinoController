@@ -1,3 +1,5 @@
+import React from "react";
+
 function TempInput({ tempType, tempVal, handleTempUpdate }) {
   const getTempLabel = () => {
     if (tempType === "set-temp") return ["", "Temp"];

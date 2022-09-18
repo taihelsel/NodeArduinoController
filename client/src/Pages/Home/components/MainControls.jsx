@@ -1,3 +1,4 @@
+import React from "react";
 import Temp5deg from "./Temp5deg";
 import ManageSchedulesBtn from "./ManageSchedulesBtn";
 

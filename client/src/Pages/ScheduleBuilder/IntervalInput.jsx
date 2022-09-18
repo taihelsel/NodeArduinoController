@@ -1,3 +1,5 @@
+import React from "react";
+
 function IntervalInput({ intervalType, intervalVal, handleIntervalUpdate }) {
   // every hr, every x hr, every x min
   const label = intervalType === "x-min-input" ? "Minutes" : "Hours";

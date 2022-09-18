@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function ManageSchedulesBtn({ handleClick }) {
   return (
     <div className="set-timer-btn" onClick={handleClick}>

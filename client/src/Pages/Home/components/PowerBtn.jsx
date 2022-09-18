@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function PowerBtn({ handlePower }) {
   return (
     <div onClick={handlePower} className="power-btn">

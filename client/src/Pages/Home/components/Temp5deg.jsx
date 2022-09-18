@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Temp5deg({ handleClick, direction }) {
   return (
     <div className={`temp5deg temp5deg-${direction}`} onClick={handleClick}>

@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function SliderControls({ handleSliderCancel, handleSliderConfirm }) {
   return (
     <div id="controls-container">

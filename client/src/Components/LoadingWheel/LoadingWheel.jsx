@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function LoadingWheel({ loadingStatus }) {
   return loadingStatus ? (
     <div id="loading-overlay">
