@@ -1,9 +1,15 @@
-function TODInput({
-  optionClick, selectedOption, setSchedTime, schedTime,
+import React from "react";
+import PropTypes from "prop-types";
+
+export default function TODInput({
+  optionClick,
+  selectedOption,
+  setSchedTime,
+  schedTime,
 }) {
   const validTime = (time, n) => {
-    if (parseInt(time) !== NaN && time.length > 0) {
-      const timeInt = parseInt(time);
+    const timeInt = parseInt(time);
+    if (Number.isNaN(timeInt) === false && time.length > 0) {
       if (n === "hour" && timeInt > 0 && timeInt <= 12) return true;
       if (n === "min" && timeInt >= 0 && timeInt <= 59) return true;
     }
@@ -53,11 +59,16 @@ function TODInput({
           <input pattern="[0-9]*" placeholder="Minute" className="tod-input" onChange={updateMin} value={schedTime.minute} type="number" />
         </div>
         <div className="sched-step-option-container">
-          <div onClick={optionClick("set-task", "am")} id={selectedOption === "am" ? "sched-step-option-selected" : null} className="sched-step-option">AM</div>
-          <div onClick={optionClick("set-task", "pm")} id={selectedOption === "pm" ? "sched-step-option-selected" : null} className="sched-step-option">PM</div>
+          <button type="button" onClick={optionClick("set-task", "am")} id={selectedOption === "am" ? "sched-step-option-selected" : null} className="sched-step-option">AM</button>
+          <button type="button" onClick={optionClick("set-task", "pm")} id={selectedOption === "pm" ? "sched-step-option-selected" : null} className="sched-step-option">PM</button>
         </div>
       </div>
     </div>
   );
 }
-export default TODInput;
+TODInput.propTypes = {
+  optionClick: PropTypes.func.isRequired,
+  selectedOption: PropTypes.string.isRequired,
+  setSchedTime: PropTypes.func.isRequired,
+  schedTime: PropTypes.string.isRequired,
+};

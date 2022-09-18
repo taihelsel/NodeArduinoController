@@ -1,7 +1,13 @@
+import React from "react";
+import PropTypes from "prop-types";
 import "./Confirmation.css";
 
-function Confirmation({
-  title, body, confirmationBtnText, handleConfirm, handleCancel,
+export default function Confirmation({
+  title,
+  body,
+  confirmationBtnText,
+  handleConfirm,
+  handleCancel,
 }) {
   return (
     <div className="confirmation-background">
@@ -13,11 +19,29 @@ function Confirmation({
           {body}
         </div>
         <div className="confirmation-footer">
-          <div className="confirmation-cancel-btn" onClick={handleCancel}>Cancel</div>
-          <div className="confirmation-confirm-btn" onClick={handleConfirm}>{confirmationBtnText}</div>
+          <button
+            type="button"
+            className="confirmation-cancel-btn"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            className="confirmation-confirm-btn"
+            onClick={handleConfirm}
+          >
+            {confirmationBtnText}
+          </button>
         </div>
       </div>
     </div>
   );
 }
-export default Confirmation;
+Confirmation.propTypes = {
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  confirmationBtnText: PropTypes.string.isRequired,
+  handleConfirm: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired,
+};

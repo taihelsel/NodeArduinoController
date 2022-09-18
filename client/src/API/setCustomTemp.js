@@ -7,10 +7,10 @@ export default function setCustomTemp(temp, cb) {
     },
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       cb(true);
     })
-    .catch((err) => {
+    .catch(() => {
       cb(false);
     });
 }

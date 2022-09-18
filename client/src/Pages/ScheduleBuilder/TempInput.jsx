@@ -1,8 +1,12 @@
-function TempInput({ tempType, tempVal, handleTempUpdate }) {
+import React from "react";
+import PropTypes from "prop-types";
+
+export default function TempInput({ tempType, tempVal, handleTempUpdate }) {
   const getTempLabel = () => {
     if (tempType === "set-temp") return ["", "Temp"];
     if (tempType === "inc-temp-x") return ["+", "1-26"];
     if (tempType === "dec-temp-x") return ["-", "1-26"];
+    return null;
   };
   const updateTemp = (temp) => {
     const newTemp = { ...tempVal };
@@ -27,8 +31,8 @@ function TempInput({ tempType, tempVal, handleTempUpdate }) {
     handleTempUpdate(newTemp);
   };
   const validTemp = (temp) => {
-    if (isNaN(parseInt(temp)) === false && temp.length > 0) {
-      const tempInt = parseInt(temp);
+    const tempInt = parseInt(temp);
+    if (Number.isNaN(tempInt) === false && temp.length > 0) {
       if (tempType === "set-temp" && tempInt >= 1 && tempInt <= 86) return true;
       if (tempType === "inc-temp-x" && tempInt >= 1 && tempInt <= 26) return true;
       if (tempType === "dec-temp-x" && tempInt >= 1 && tempInt <= 26) return true;
@@ -55,4 +59,11 @@ function TempInput({ tempType, tempVal, handleTempUpdate }) {
     </div>
   );
 }
-export default TempInput;
+TempInput.propTypes = {
+  tempType: PropTypes.string.isRequired,
+  tempVal: PropTypes.shape({
+    temp: PropTypes.number.isRequired,
+    ready: PropTypes.bool.isRequired,
+  }).isRequired,
+  handleTempUpdate: PropTypes.func.isRequired,
+};

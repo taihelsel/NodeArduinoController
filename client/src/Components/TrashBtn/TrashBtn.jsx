@@ -1,4 +1,6 @@
-function TrashBtn() {
+import React from "react";
+
+export default function TrashBtn() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="41.652" height="50" viewBox="0 0 41.652 50">
       <g fill="#f3f4f6">
@@ -8,4 +10,3 @@ function TrashBtn() {
     </svg>
   );
 }
-export default TrashBtn;

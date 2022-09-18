@@ -23,5 +23,6 @@ module.exports = {
     quotes: ["error", "double"],
     "linebreak-style": 0,
     indent: [2, 2],
+    radix: "off",
   },
 };

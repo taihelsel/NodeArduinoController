@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { setCustomTemp } from "../../../API";
 import HomeControls from "./HomeControls";
 import TempSlider from "../../../Components/TempSlider/TempSlider";
@@ -46,3 +47,9 @@ export default function HomeContent({
     </>
   );
 }
+HomeContent.propTypes = {
+  originalTemp: PropTypes.number.isRequired,
+  setTemp: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  updatePage: PropTypes.func.isRequired,
+};

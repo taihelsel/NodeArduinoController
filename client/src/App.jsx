@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
 
-import Home from "./Pages/Home/Home.js";
+import Home from "./Pages/Home/Home";
 import Schedule from "./Pages/Schedule/Schedule";
 import ScheduleBuilder from "./Pages/ScheduleBuilder/ScheduleBuilder";
 

@@ -4,10 +4,10 @@ export default function decreaseTemp(amount, cb) {
     body: { amount },
   })
     .then((res) => res.json())
-    .then((data) => {
+    .then(() => {
       cb(true);
     })
-    .catch((err) => {
+    .catch(() => {
       cb(false);
     });
 }

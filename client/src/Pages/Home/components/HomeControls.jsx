@@ -1,3 +1,5 @@
+import React from "react";
+import PropTypes from "prop-types";
 import {
   increaseTemp,
   decreaseTemp,
@@ -52,3 +54,12 @@ export default function HomeControls({
     />
   );
 }
+HomeControls.propTypes = {
+  originalTemp: PropTypes.number.isRequired,
+  currentTemp: PropTypes.number.isRequired,
+  updateTemp: PropTypes.func.isRequired,
+  setLoading: PropTypes.func.isRequired,
+  updatePage: PropTypes.func.isRequired,
+  handleSliderConfirm: PropTypes.func.isRequired,
+  handleSliderCancel: PropTypes.func.isRequired,
+};

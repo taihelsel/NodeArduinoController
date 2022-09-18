@@ -1,4 +1,11 @@
-function IntervalInput({ intervalType, intervalVal, handleIntervalUpdate }) {
+import React from "react";
+import PropTypes from "prop-types";
+
+export default function IntervalInput({
+  intervalType,
+  intervalVal,
+  handleIntervalUpdate,
+}) {
   // every hr, every x hr, every x min
   const label = intervalType === "x-min-input" ? "Minutes" : "Hours";
   const updateInterval = (value) => {
@@ -14,8 +21,8 @@ function IntervalInput({ intervalType, intervalVal, handleIntervalUpdate }) {
     handleIntervalUpdate(newInterval);
   };
   const validTime = (time) => {
-    if (parseInt(time) !== NaN && time.length > 0) {
-      const timeInt = parseInt(time);
+    const timeInt = parseInt(time);
+    if (Number.isNaN(timeInt) === false && time.length > 0) {
       if (intervalType === "x-hour-input" && timeInt > 0 && timeInt <= 24) return true;
       if (intervalType === "x-min-input" && timeInt >= 0 && timeInt <= 59) return true;
     }
@@ -50,4 +57,11 @@ function IntervalInput({ intervalType, intervalVal, handleIntervalUpdate }) {
     </div>
   );
 }
-export default IntervalInput;
+IntervalInput.propTypes = {
+  intervalType: PropTypes.string.isRequired,
+  intervalVal: PropTypes.shape({
+    value: PropTypes.number.isRequired,
+    ready: PropTypes.bool.isRequired,
+  }).isRequired,
+  handleIntervalUpdate: PropTypes.func.isRequired,
+};

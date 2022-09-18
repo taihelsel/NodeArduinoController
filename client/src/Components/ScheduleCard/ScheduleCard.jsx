@@ -1,7 +1,12 @@
+import React from "react";
+import PropTypes from "prop-types";
 import "./ScheduleCard.css";
 
-function ScheduleCard({
-  data, fillEdit, editMode, handleBtnClick,
+export default function ScheduleCard({
+  data,
+  fillEdit,
+  editMode,
+  handleBtnClick,
 }) {
   const { desc, command, exeTime } = data;
   const setSidebarColor = (cmd) => {
@@ -14,6 +19,7 @@ function ScheduleCard({
     }
     if (cmd.indexOf("temp-") !== -1) return "blue";
     if (cmd.indexOf("temp+") !== -1) return "red";
+    return null;
   };
   const cardHighlight = (txt) => <h3 className="schedule-card-highlight">{txt}</h3>;
   const renderEvery = (arr) => {
@@ -32,10 +38,10 @@ function ScheduleCard({
   const handleDeleteBtnClick = () => {
     handleBtnClick(exeTime);
   };
-  const renderDeleteBtn = (editMode) => (editMode ? (
-    <div className={`schedule-delete-btn ${fillEdit ? "schedule-delete-btn-fill" : ""}`} onClick={handleDeleteBtnClick}>
+  const renderDeleteBtn = () => (editMode ? (
+    <button type="button" className={`schedule-delete-btn ${fillEdit ? "schedule-delete-btn-fill" : ""}`} onClick={handleDeleteBtnClick}>
                 &nbsp;
-    </div>
+    </button>
   ) : "");
   return (
     <div className="schedule-card">
@@ -55,4 +61,13 @@ function ScheduleCard({
     </div>
   );
 }
-export default ScheduleCard;
+ScheduleCard.propTypes = {
+  data: PropTypes.shape({
+    desc: PropTypes.string.isRequired,
+    command: PropTypes.string.isRequired,
+    exeTime: PropTypes.string.isRequired,
+  }).isRequired,
+  fillEdit: PropTypes.string.isRequired,
+  editMode: PropTypes.bool.isRequired,
+  handleBtnClick: PropTypes.func.isRequired,
+};
