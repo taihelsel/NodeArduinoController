@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { CircleSlider } from "react-circle-slider";
 import "./TempSlider.css";
 
-function TempSlider({ handleSliderChange, tempVal }) {
+export default function TempSlider({ handleSliderChange, tempVal }) {
   const handleChange = (e) => {
     handleSliderChange(e);
   };
@@ -24,4 +25,7 @@ function TempSlider({ handleSliderChange, tempVal }) {
     </div>
   );
 }
-export default TempSlider;
+TempSlider.propTypes = {
+  handleSliderChange: PropTypes.func.isRequired,
+  tempVal: PropTypes.number.isRequired,
+};

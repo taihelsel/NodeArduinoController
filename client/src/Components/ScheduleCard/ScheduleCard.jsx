@@ -1,8 +1,12 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./ScheduleCard.css";
 
-function ScheduleCard({
-  data, fillEdit, editMode, handleBtnClick,
+export default function ScheduleCard({
+  data,
+  fillEdit,
+  editMode,
+  handleBtnClick,
 }) {
   const { desc, command, exeTime } = data;
   const setSidebarColor = (cmd) => {
@@ -56,4 +60,13 @@ function ScheduleCard({
     </div>
   );
 }
-export default ScheduleCard;
+ScheduleCard.propTypes = {
+  data: PropTypes.shape({
+    desc: PropTypes.string.isRequired,
+    command: PropTypes.string.isRequired,
+    exeTime: PropTypes.string.isRequired,
+  }).isRequired,
+  fillEdit: PropTypes.string.isRequired,
+  editMode: PropTypes.bool.isRequired,
+  handleBtnClick: PropTypes.func.isRequired,
+};

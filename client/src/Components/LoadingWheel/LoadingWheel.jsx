@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function LoadingWheel({ loadingStatus }) {
   return loadingStatus ? (
@@ -13,3 +14,6 @@ export default function LoadingWheel({ loadingStatus }) {
     </div>
   ) : null;
 }
+LoadingWheel.propTypes = {
+  loadingStatus: PropTypes.func.isRequired,
+};
