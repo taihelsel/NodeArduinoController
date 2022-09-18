@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./ScheduleCard.css";
 
 export default function ScheduleCard({
   data,
