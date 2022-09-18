@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./Schedule.css";
 import BackArrow from "../../Components/BackArrow/BackArrow";
 import ScheduleCard from "../../Components/ScheduleCard/ScheduleCard";
@@ -6,7 +7,7 @@ import AddSchedBtn from "../../Components/AddSchedBtn/AddSchedBtn";
 import TrashBtn from "../../Components/TrashBtn/TrashBtn";
 import Confirmation from "../../Components/Confirmation/Confirmation";
 
-function Schedule({ updatePage }) {
+export default function Schedule({ updatePage }) {
   const [editMode, setEditMode] = useState(false);
   const [toDelete, setToDelete] = useState([]);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -28,13 +29,27 @@ function Schedule({ updatePage }) {
   const addSchedClick = () => {
     updatePage("schedulebuilder");
   };
+  const handleDeleteList = (exeTime) => {
+    const newDelList = [...toDelete];
+    const index = newDelList.indexOf(exeTime);
+    if (index !== -1) newDelList.splice(index, 1);
+    else newDelList.push(exeTime);
+    setToDelete(newDelList);
+  };
   const loadCards = () => {
     const schedKeys = Object.keys(schedules);
     if (schedKeys.legnth === 0) return null;
     return schedKeys.map((key) => {
       const data = schedules[key];
       const fillEdit = toDelete.indexOf(data.exeTime) !== -1;
-      return <ScheduleCard data={data} editMode={editMode} fillEdit={fillEdit} handleBtnClick={handleDeleteList} />;
+      return (
+        <ScheduleCard
+          data={data}
+          editMode={editMode}
+          fillEdit={fillEdit}
+          handleBtnClick={handleDeleteList}
+        />
+      );
     });
   };
   const handleEditClick = () => {
@@ -44,27 +59,20 @@ function Schedule({ updatePage }) {
     }
     setEditMode(!editMode);
   };
-  const handleDeleteList = (exeTime) => {
-    const newDelList = [...toDelete];
-    const index = newDelList.indexOf(exeTime);
-    if (index !== -1) newDelList.splice(index, 1);
-    else newDelList.push(exeTime);
-    setToDelete(newDelList);
-  };
   const trashClick = () => {
     console.log("tash");
     if (toDelete.length > 0) {
       setShowConfirmation(true);
     }
   };
-  const renderFooter = (editMode) => (editMode ? (
-    <div id="trash-sched-btn" onClick={trashClick}>
+  const renderFooter = () => (editMode ? (
+    <button type="button" id="trash-sched-btn" onClick={trashClick}>
       <TrashBtn />
-    </div>
+    </button>
   ) : (
-    <div id="add-sched-btn" onClick={addSchedClick}>
+    <button type="button" id="add-sched-btn" onClick={addSchedClick}>
       <AddSchedBtn />
-    </div>
+    </button>
   ));
   const handleConfirmationCancel = () => {
     // just hide cancel
@@ -92,8 +100,7 @@ function Schedule({ updatePage }) {
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
-      .then(({ msg }) => {
-        // alert(msg);
+      .then(() => {
         updateSchedules();
       }).catch((err) => {
         console.log("handle err getting schedules", err);
@@ -115,17 +122,19 @@ function Schedule({ updatePage }) {
         <div className="nav-back">
           <BackArrow handleClick={backArrowClick} />
         </div>
-        <div id="edit-controls" onClick={handleEditClick}>
+        <button type="button" id="edit-controls" onClick={handleEditClick}>
           <h3>{editMode ? "Cancel" : "Edit"}</h3>
-        </div>
+        </button>
       </nav>
       <div id="schedule-content">
         {loadCards()}
       </div>
-      {renderFooter(editMode)}
+      {renderFooter()}
       {showConfirmation ? <Confirmation title={`Deleting ${toDelete.length} schedules`} body="Are you sure you want to delete these schedules" confirmationBtnText="Delete" handleCancel={handleConfirmationCancel} handleConfirm={handleConfirmationConfirm} /> : ""}
     </section>
   );
 }
 
-export default Schedule;
+Schedule.propTypes = {
+  updatePage: PropTypes.func.isRequired,
+};
