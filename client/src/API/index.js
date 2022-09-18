@@ -5,6 +5,8 @@ import togglePower from "./togglePower";
 import increaseTemp from "./increaseTemp";
 import decreaseTemp from "./decreaseTemp";
 import setCustomTemp from "./setCustomTemp";
+/* DELETE */
+import deleteSchedules from "./deleteSchedules";
 
 export {
   getSchedules,
@@ -12,4 +14,5 @@ export {
   increaseTemp,
   decreaseTemp,
   setCustomTemp,
+  deleteSchedules,
 };

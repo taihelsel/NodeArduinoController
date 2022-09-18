@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Schedule.css";
-import { getSchedules } from "../../API";
+import { getSchedules, deleteSchedules } from "../../API";
 import BackArrow from "../../Components/BackArrow/BackArrow";
 import ScheduleCard from "../../Components/ScheduleCard/ScheduleCard";
 import AddSchedBtn from "../../Components/AddSchedBtn/AddSchedBtn";
@@ -56,7 +56,6 @@ export default function Schedule({ updatePage }) {
     setEditMode(!editMode);
   };
   const trashClick = () => {
-    console.log("tash");
     if (toDelete.length > 0) {
       setShowConfirmation(true);
     }
@@ -75,37 +74,19 @@ export default function Schedule({ updatePage }) {
     setShowConfirmation(false);
   };
   const updateSchedules = () => {
-    fetch("/schedule/list")
-      .then((res) => res.json())
-      .then(({ data, ok }) => {
-        if (ok === true) {
-          setSchedules(data);
-        }
-      }).catch((err) => {
-        console.log("handle err getting schedules", err);
-      });
+    getSchedules((success, data) => {
+      if (success) setSchedules(data);
+      else alert("Error getting schedules");
+    });
   };
   const deleteData = (data) => {
-    const body = { list: data };
-    fetch("/schedule/delete", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "*/*",
-      },
-      method: "DELETE",
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
-      .then(() => {
-        updateSchedules();
-      }).catch((err) => {
-        console.log("handle err getting schedules", err);
-      });
+    deleteSchedules(data, (success) => {
+      if (success) updateSchedules();
+      else alert("Error deleting schedules");
+    });
   };
   const handleConfirmationConfirm = () => {
     // send delete to backend
-    console.log("send delete data");
-    // send copy of delete list
     deleteData([...toDelete]);
     // cleanup
     setShowConfirmation(false);
