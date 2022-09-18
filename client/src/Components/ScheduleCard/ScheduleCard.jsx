@@ -19,6 +19,7 @@ export default function ScheduleCard({
     }
     if (cmd.indexOf("temp-") !== -1) return "blue";
     if (cmd.indexOf("temp+") !== -1) return "red";
+    return null;
   };
   const cardHighlight = (txt) => <h3 className="schedule-card-highlight">{txt}</h3>;
   const renderEvery = (arr) => {
@@ -37,10 +38,10 @@ export default function ScheduleCard({
   const handleDeleteBtnClick = () => {
     handleBtnClick(exeTime);
   };
-  const renderDeleteBtn = (editMode) => (editMode ? (
-    <div className={`schedule-delete-btn ${fillEdit ? "schedule-delete-btn-fill" : ""}`} onClick={handleDeleteBtnClick}>
+  const renderDeleteBtn = () => (editMode ? (
+    <button type="button" className={`schedule-delete-btn ${fillEdit ? "schedule-delete-btn-fill" : ""}`} onClick={handleDeleteBtnClick}>
                 &nbsp;
-    </div>
+    </button>
   ) : "");
   return (
     <div className="schedule-card">
