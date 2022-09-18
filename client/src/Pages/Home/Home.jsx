@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import "./Home.css";
 import { togglePower } from "../../API";
 import {
@@ -7,7 +8,7 @@ import {
 } from "./components";
 import LoadingWheel from "../../Components/LoadingWheel/LoadingWheel";
 
-function Home({ updatePage }) {
+export default function Home({ updatePage }) {
   const [temp, setTemp] = useState(70);
   const [loading, setLoading] = useState(false);
   const powerClick = () => {
@@ -32,4 +33,6 @@ function Home({ updatePage }) {
   );
 }
 
-export default Home;
+Home.propTypes = {
+  updatePage: PropTypes.func.isRequired,
+};

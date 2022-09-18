@@ -1,8 +1,13 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Temp5deg from "./Temp5deg";
 import ManageSchedulesBtn from "./ManageSchedulesBtn";
 
-export default function MainControls({ decreaseTempClick, increaseTempClick, handleSchedClick }) {
+export default function MainControls({
+  decreaseTempClick,
+  increaseTempClick,
+  handleSchedClick,
+}) {
   return (
     <div id="controls-container">
       <div className="home-btns-row">
@@ -15,3 +20,8 @@ export default function MainControls({ decreaseTempClick, increaseTempClick, han
     </div>
   );
 }
+MainControls.propTypes = {
+  decreaseTempClick: PropTypes.func.isRequired,
+  increaseTempClick: PropTypes.func.isRequired,
+  handleSchedClick: PropTypes.func.isRequired,
+};

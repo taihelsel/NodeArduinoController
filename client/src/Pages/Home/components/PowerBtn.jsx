@@ -1,8 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function PowerBtn({ handlePower }) {
   return (
-    <div onClick={handlePower} className="power-btn">
+    <button type="button" onClick={handlePower} className="power-btn">
       <svg xmlns="http://www.w3.org/2000/svg" width="65" height="65">
         <g data-name="Group 3" transform="translate(-20 -13)">
           <circle data-name="Ellipse 1" cx="32.5" cy="32.5" r="32.5" transform="translate(20 13)" fill="#a95050" />
@@ -12,6 +13,9 @@ export default function PowerBtn({ handlePower }) {
           </g>
         </g>
       </svg>
-    </div>
+    </button>
   );
 }
+PowerBtn.propTypes = {
+  handlePower: PropTypes.func.isRequired,
+};
