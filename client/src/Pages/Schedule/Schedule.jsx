@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "./Schedule.css";
+import { getSchedules } from "../../API";
 import BackArrow from "../../Components/BackArrow/BackArrow";
 import ScheduleCard from "../../Components/ScheduleCard/ScheduleCard";
 import AddSchedBtn from "../../Components/AddSchedBtn/AddSchedBtn";
@@ -13,15 +14,10 @@ export default function Schedule({ updatePage }) {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [schedules, setSchedules] = useState({});
   useEffect(() => {
-    fetch("/schedule/list")
-      .then((res) => res.json())
-      .then(({ data, ok }) => {
-        if (ok === true) {
-          setSchedules(data);
-        }
-      }).catch((err) => {
-        console.log("handle err getting schedules", err);
-      });
+    getSchedules((success, data) => {
+      if (success) setSchedules(data);
+      else alert("Error getting schedules");
+    });
   }, []);
   const backArrowClick = () => {
     updatePage("home");
